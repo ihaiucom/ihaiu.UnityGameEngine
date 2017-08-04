@@ -46,6 +46,7 @@ namespace com.ihaiu
 		public T LoadAsset<T>(string filename) where T : UnityEngine.Object
 		{
 			return Resources.Load<T> (filename);
+
 		}
 
 		public UnityEngine.Object LoadAsset(string filename, Type type)

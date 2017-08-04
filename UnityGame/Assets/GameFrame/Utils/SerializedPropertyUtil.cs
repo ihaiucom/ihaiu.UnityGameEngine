@@ -6,7 +6,7 @@ using UnityEditor;
 
 public static class SerializedPropertyUtil 
 {
-	[MenuItem("Test/PrintTagManager")]
+	[MenuItem("Edit/Game/PrintTagManager")]
 	public static void PrintTagManager () 
 	{
 		SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);

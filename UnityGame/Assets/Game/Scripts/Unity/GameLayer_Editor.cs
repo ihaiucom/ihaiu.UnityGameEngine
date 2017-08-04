@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Games
 {
-	public partial class GameLayer
+	public partial class GameLayerEditor
     {
 
 
@@ -16,7 +16,7 @@ namespace Games
         public static void SetEditorTag ()
         {
 			
-			#if UNITY_4_7
+			#if UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
 			
 			SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
 			SerializedProperty it = tagManager.GetIterator();
@@ -62,8 +62,9 @@ namespace Games
 		[MenuItem("Edit/Game/Generate GameLayer.cs")]
 		public static void GenerateGameLayer ()
 		{
+			GenerateGameLayerEnum ();
 
-#if UNITY_4_7
+#if UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
 			
 			SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
 			SerializedProperty it = tagManager.GetIterator();
@@ -71,7 +72,7 @@ namespace Games
 			StringWriter sw = new StringWriter();
 			sw.WriteLine("namespace Games");
 			sw.WriteLine("{");
-			sw.WriteLine("\tpublic partial class GameLayer");
+			sw.WriteLine("\tpublic partial class GameLayerEditor");
 			sw.WriteLine("\t{");
 			
 			sw.WriteLine("\t\t#region Unity Default Lock");
@@ -125,7 +126,7 @@ namespace Games
 			
 			sw.WriteLine("\t}");
 			sw.WriteLine("}");
-			File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayer.cs", sw.ToString(), System.Text.Encoding.UTF8);
+			File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayerClass.cs", sw.ToString(), System.Text.Encoding.UTF8);
 			AssetDatabase.Refresh();
 #else
 			
@@ -139,7 +140,7 @@ namespace Games
 					StringWriter sw = new StringWriter();
 					sw.WriteLine("namespace Games");
 					sw.WriteLine("{");
-					sw.WriteLine("\tpublic partial class GameLayer");
+					sw.WriteLine("\tpublic partial class GameLayerEditor");
 					sw.WriteLine("\t{");
 
 					sw.WriteLine("\t\t#region Unity Default Lock");
@@ -178,13 +179,122 @@ namespace Games
 
 					sw.WriteLine("\t}");
 					sw.WriteLine("}");
-					File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayer.cs", sw.ToString(), System.Text.Encoding.UTF8);
+					File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayerClass.cs", sw.ToString(), System.Text.Encoding.UTF8);
 					AssetDatabase.Refresh();
 					break;
 				}
 			}
 			
 #endif
+		}
+
+
+		public static void GenerateGameLayerEnum ()
+		{
+			
+			#if UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
+			
+			SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
+			SerializedProperty it = tagManager.GetIterator();
+			
+			StringWriter sw = new StringWriter();
+			sw.WriteLine("namespace Games");
+			sw.WriteLine("{");
+
+			sw.WriteLine("\t[System.Flags]");
+			sw.WriteLine("\tpublic enum GameLayer");
+			sw.WriteLine("\t{");
+			
+			sw.WriteLine("\t\t#region Unity Default Lock");
+			int i = 0;
+			while (it.NextVisible(true))
+			{
+				if(it.name.StartsWith("Builtin Layer"))
+				{
+					string fieldname = string.IsNullOrEmpty(it.stringValue) ? "Layer" + i : it.stringValue.Replace(" ", "_");
+					sw.WriteLine(string.Format("\t\t{0}\t\t\t=\t1 << {1},", fieldname , i ));
+					i ++;
+				}
+				
+				if(i >= 8) break;
+			}
+			
+			sw.WriteLine("\t\t#endregion");
+			sw.WriteLine("\n");
+			
+			
+			List<string> fieldnames = new List<string>();
+			
+			while (it.NextVisible(true))
+			{
+				if(it.name.StartsWith("User Layer"))
+				{
+					string fieldname = string.IsNullOrEmpty(it.stringValue) ? "Layer" + i : it.stringValue.Replace(" ", "_");
+					sw.WriteLine(string.Format("\t\t{0}\t\t\t=\t1 << {1},", fieldname , i ));
+					fieldnames.Add(string.Format("\"{0}\"", fieldname));
+					
+					i ++;
+				}
+				
+				if(i >= 32) break;
+			}
+			
+			
+			sw.WriteLine("\n");
+			
+			sw.WriteLine("\t}");
+			sw.WriteLine("}");
+			File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayer.cs", sw.ToString(), System.Text.Encoding.UTF8);
+			AssetDatabase.Refresh();
+			#else
+			
+			SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
+			SerializedProperty it = tagManager.GetIterator();
+			
+			while (it.NextVisible(true))
+			{
+				if(it.name == "layers")
+				{
+					StringWriter sw = new StringWriter();
+					sw.WriteLine("namespace Games");
+					sw.WriteLine("{");
+					sw.WriteLine("\t[System.Flags]");
+					sw.WriteLine("\tpublic enum GameLayer");
+					sw.WriteLine("\t{");
+					
+					sw.WriteLine("\t\t#region Unity Default Lock");
+					for (int i = 0; i < 8; i++) 
+					{
+						SerializedProperty dataPoint = it.GetArrayElementAtIndex(i);
+						string fieldname = string.IsNullOrEmpty(dataPoint.stringValue) ? "Layer" + i : dataPoint.stringValue.Replace(" ", "_");
+						sw.WriteLine(string.Format("\t\t{0}\t\t\t=\t1 << {1},", fieldname , i ));
+						
+					}
+					sw.WriteLine("\t\t#endregion");
+					sw.WriteLine("\n");
+					
+					List<string> fieldnames = new List<string>();
+					for (int i = 8; i < it.arraySize; i++) 
+					{
+						SerializedProperty dataPoint = it.GetArrayElementAtIndex(i);
+						string fieldname = string.IsNullOrEmpty(dataPoint.stringValue) ? "Layer" + i : dataPoint.stringValue.Replace(" ", "_");
+						sw.WriteLine(string.Format("\t\t{0}\t\t\t=\t1 << {1},", fieldname , i ));
+						fieldnames.Add(string.Format("\"{0}\"", fieldname));
+					}
+					
+				
+					
+					sw.WriteLine("\n");
+					
+					sw.WriteLine("\t}");
+					sw.WriteLine("}");
+					File.WriteAllText(Application.dataPath + "/Game/Scripts/Unity/GameLayer.cs", sw.ToString(), System.Text.Encoding.UTF8);
+					AssetDatabase.Refresh();
+					break;
+				}
+			}
+			
+			#endif
 		}
     }
 }

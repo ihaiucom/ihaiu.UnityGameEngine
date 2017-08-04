@@ -60,6 +60,7 @@ namespace Games
 					StringWriter sw = new StringWriter();
 					sw.WriteLine("namespace Games");
 					sw.WriteLine("{");
+					sw.WriteLine("\t[System.Flags]");
 					sw.WriteLine("\tpublic enum GameSortingLayer");
 					sw.WriteLine("\t{");
 

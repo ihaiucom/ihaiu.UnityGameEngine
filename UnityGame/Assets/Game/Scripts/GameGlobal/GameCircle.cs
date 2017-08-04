@@ -30,12 +30,11 @@ public class GameCircle
         if (isInit)
             return;
         isInit = true;
-		Game.asset.Load("Modules/GameCirclePanel", OnLoad);
+		Game.asset.Load("PrefabUI/GameSystem/GameCirclePanel", OnLoad);
     }
 
     void OnLoad(string filename, object obj)
     {
-		Debug.Log(filename + "  obj=" + obj);
 		go = (GameObject)GameObject.Instantiate((GameObject) obj);
         go.transform.SetParent(Game.uiLayer.loader);
 		RectTransform rectTransform = (RectTransform) go.transform;

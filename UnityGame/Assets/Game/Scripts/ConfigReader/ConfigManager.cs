@@ -9,6 +9,7 @@ namespace Games
 	{
 		public IEnumerator Load()
 		{
+			Loger.Log ("Config Load");
 			int count = readerList.Count;
 			for(int i = 0; i < count; i ++)
 			{

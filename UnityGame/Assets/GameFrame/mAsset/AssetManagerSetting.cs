@@ -107,6 +107,8 @@ namespace com.ihaiu
                         return Application.dataPath + "/../res/" ;
                     case RuntimePlatform.OSXPlayer:
                         return Application.dataPath + "/res/" ;
+					default:
+						return Application.persistentDataPath + "/";
                 }
 				#else
 				return Application.persistentDataPath + "/";

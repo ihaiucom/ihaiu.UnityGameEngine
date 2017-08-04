@@ -31,14 +31,13 @@ public class Game
 	public static UserData user = new UserData();
     #endregion
 
-	public static IEnumerator Install(GameObject go)
+	public static void Install(GameObject go)
     {
 		Game.go 			= go;
 		Game.mainThread		= go.AddComponent<MainThreadManager>();
+		Game.asset 			= go.AddComponent<AssetManager> ();
 		Game.config 		= new ConfigManager();
 		Game.menu			= new MenuManager();
 		Game.module			= new ModuleManager();
-
-        yield break;
     }
 }

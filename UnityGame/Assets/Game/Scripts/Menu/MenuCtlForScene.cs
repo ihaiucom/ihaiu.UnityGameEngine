@@ -49,7 +49,7 @@ namespace Games
 #if UNITY_4_7
 			AsyncOperation async = Application.LoadLevelAdditiveAsync(sceneName);
 #else
-			AsyncOperation async = UnityEngine.SceneManagement.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+			AsyncOperation async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 #endif
 			async.allowSceneActivation = false;
 			while(!async.isDone && async.progress < 0.8f)

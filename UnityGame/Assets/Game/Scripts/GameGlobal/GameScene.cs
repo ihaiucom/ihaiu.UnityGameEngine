@@ -8,11 +8,11 @@ public class GameScene
 	public static string War		= "War";
 
 #if !UNITY_4_7
-	public static Scene CurrentScene
+	public static UnityEngine.SceneManagement.Scene CurrentScene
 	{
 		get
 		{
-			return UnityEngine.SceneManagement.GetActiveScene();
+			return UnityEngine.SceneManagement.SceneManager.GetActiveScene();
 		}
 	}
 #endif

@@ -99,6 +99,7 @@ namespace com.ihaiu
                 }
                 #endif
 
+
                 #if UNITY_STANDALONE
                 switch(Application.platform)
                 {

@@ -9,7 +9,7 @@ namespace Games
 	{
 		public IEnumerator Load()
 		{
-			Loger.Log ("Config Load");
+			Loger.Log ("ConfigManager Load Begin");
 			int count = readerList.Count;
 			for(int i = 0; i < count; i ++)
 			{
@@ -18,6 +18,7 @@ namespace Games
 			}
 
 			OnGameConfigLoaded();
+			Loger.Log ("ConfigManager Load End");
 		}
 
 		public IEnumerator Reload()

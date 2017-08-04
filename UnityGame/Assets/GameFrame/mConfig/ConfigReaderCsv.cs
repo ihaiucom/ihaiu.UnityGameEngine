@@ -18,14 +18,13 @@ namespace com.ihaiu
             ConfigSetting.Load(arrtr.assetName, ParseAsset);
         }
 
-        virtual public void ParseAsset(string path, object obj)
+		virtual public void ParseAsset(string path, string txt)
         {
-			if(obj == null)
+			if(txt == null)
 			{
-				Loger.LogErrorFormat("{0}: obj={1}, path={2}", this, obj, path);
+				Loger.LogErrorFormat("{0}: txt={1}, path={2}", this, txt, path);
 				return;
 			}
-            string txt = (string) obj;
             StringReader sr = new StringReader(txt);
 
             string      line;

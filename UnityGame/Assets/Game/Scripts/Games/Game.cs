@@ -31,7 +31,7 @@ public class Game
 	public static UserData user = new UserData();
     #endregion
 
-	public static void Install(GameObject go)
+	public static IEnumerator Install(GameObject go)
     {
 		Game.go 			= go;
 		Game.mainThread		= go.AddComponent<MainThreadManager>();
@@ -39,5 +39,7 @@ public class Game
 		Game.config 		= new ConfigManager();
 		Game.menu			= new MenuManager();
 		Game.module			= new ModuleManager();
+
+		yield return 0;
     }
 }

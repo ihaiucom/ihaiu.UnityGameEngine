@@ -10,9 +10,9 @@ namespace com.ihaiu
     {
 
 
-        public static void Load(string path, Action<string, UnityEngine.Object> call)
+		public static void Load(string path, Action<string, string> call)
         {
-            Game.asset.Load(path, call);
+			Game.asset.LoadConfig(path, call);
         }
     }
 }

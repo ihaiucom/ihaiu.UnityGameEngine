@@ -14,9 +14,9 @@
 		#endregion
 
 
-		public const int War_Terrain			=	1 << 8;
-		public const int War_Unit			=	1 << 9;
-		public const int War_Obstacle			=	1 << 10;
+		public const int Layer8			=	1 << 8;
+		public const int Layer9			=	1 << 9;
+		public const int Layer10			=	1 << 10;
 		public const int Layer11			=	1 << 11;
 		public const int Layer12			=	1 << 12;
 		public const int Layer13			=	1 << 13;
@@ -41,6 +41,6 @@
 
 
 		public static int           customBeginIndex = 8;
-		public static string[]      customLayers = {"War_Terrain","War_Unit","War_Obstacle","Layer11","Layer12","Layer13","Layer14","Layer15","Layer16","Layer17","Layer18","Layer19","Layer20","Layer21","Layer22","Layer23","Layer24","Layer25","Layer26","Layer27","Layer28","Layer29","Layer30","Layer31"};
+		public static string[]      customLayers = {"Layer8","Layer9","Layer10","Layer11","Layer12","Layer13","Layer14","Layer15","Layer16","Layer17","Layer18","Layer19","Layer20","Layer21","Layer22","Layer23","Layer24","Layer25","Layer26","Layer27","Layer28","Layer29","Layer30","Layer31"};
 	}
 }

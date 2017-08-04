@@ -2,12 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 
 namespace com.ihaiu
 {
 	public partial class AssetManager : MonoBehaviour 
 	{
 		private static Type TYPE_OBJECT = typeof(UnityEngine.Object);
+
+
+		#region 加载Config
+		public void LoadConfig(string filename, Action<string, string> callback)
+		{
+			if (callback != null)
+			{
+				callback (filename, LoadConfig(filename));
+			}
+		}
+
+		public string LoadConfig(string filename)
+		{
+			
+			#if UNITY_EDITOR
+			filename = AssetManagerSetting.EditorGetConfigPath(filename);
+			return File.ReadAllText(filename);
+			#else
+			TextAsset obj = Resources.Load<TextAsset> (filename);
+			if (obj != null)
+				return obj.text;
+			else
+				return string.Empty;
+			#endif
+		}
+		#endregion
+
+
+		#region 加载Lua
+		public void LoadLua(string filename, Action<string, string> callback)
+		{
+			if (callback != null)
+			{
+				callback (filename, LoadConfig(filename));
+			}
+		}
+
+		public string LoadLua(string filename)
+		{
+			filename += ".lua";
+			#if UNITY_EDITOR
+			filename = AssetManagerSetting.EditorRoot.Lua + "/" + filename;
+			return File.ReadAllText(filename);
+			#else
+			TextAsset obj = Resources.Load<TextAsset> (filename);
+			if (obj != null)
+			return obj.text;
+			else
+			return string.Empty;
+			#endif
+		}
+		#endregion
 		
 		#region 加载回调
 		/** 同步 加载Asset */

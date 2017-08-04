@@ -18,10 +18,13 @@ namespace Games
 		IEnumerator Install()
 		{
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install Begin");
-			Game.Install (gameObject);
+
+			yield return StartCoroutine ( Game.Install (gameObject) );
+
+			;
 			Game.cricle.Show ();
 
-			yield return Game.config.Load ();
+			yield return StartCoroutine ( Game.config.Load ());
 
 
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install End");

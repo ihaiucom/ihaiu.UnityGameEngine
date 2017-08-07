@@ -15,6 +15,7 @@ namespace Games
 			StartCoroutine(Install());
 		}
 
+
 		IEnumerator Install()
 		{
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install Begin");
@@ -22,13 +23,23 @@ namespace Games
 			yield return StartCoroutine ( Game.Install (gameObject) );
 			Game.cricle.Show ();
 
-			yield return StartCoroutine ( Game.config.Load ());
+			Game.InitLuaEnvLaunch ();
 
 
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install End");
 			yield return null;
 		}
 
-
-    }
+		void Update()
+		{
+			Game.Update ();
+		}
+		
+		void OnDestroy()
+		{
+			Game.OnDestroy ();
+		}
+		
+		
+	}
 }

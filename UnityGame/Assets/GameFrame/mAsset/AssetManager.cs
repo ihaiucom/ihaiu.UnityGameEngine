@@ -38,28 +38,32 @@ namespace com.ihaiu
 
 
 		#region 加载Lua
-		public void LoadLua(string filename, Action<string, string> callback)
+		public byte[] LoadLua(ref string filename)
 		{
-			if (callback != null)
-			{
-				callback (filename, LoadConfig(filename));
-			}
-		}
+			string script = null;
 
-		public string LoadLua(string filename)
-		{
-			filename += ".lua";
 			#if UNITY_EDITOR
+			filename += ".lua";
 			filename = AssetManagerSetting.EditorRoot.Lua + "/" + filename;
-			return File.ReadAllText(filename);
+			script =  File.ReadAllText(filename);
 			#else
 			TextAsset obj = Resources.Load<TextAsset> (filename);
 			if (obj != null)
-			return obj.text;
-			else
-			return string.Empty;
+				string script =  obj.text;
 			#endif
+
+			if(script != null)
+			{
+				return System.Text.Encoding.UTF8.GetBytes(script);
+			}
+			else
+			{
+				Loger.LogErrorFormat("AssetManager.LoadLua 没加载到 filename={0}", filename);
+			}
+
+			return null;
 		}
+
 		#endregion
 		
 		#region 加载回调

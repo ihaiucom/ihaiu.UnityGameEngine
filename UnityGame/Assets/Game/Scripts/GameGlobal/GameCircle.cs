@@ -36,6 +36,7 @@ public class GameCircle
     void OnLoad(string filename, object obj)
     {
 		go = (GameObject)GameObject.Instantiate((GameObject) obj);
+		go.name = go.name.Replace ("(Clone)", string.Empty);
         go.transform.SetParent(Game.uiLayer.loader);
 		RectTransform rectTransform = (RectTransform) go.transform;
 		rectTransform.offsetMin = Vector2.zero;

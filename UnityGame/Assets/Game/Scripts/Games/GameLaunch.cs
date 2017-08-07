@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.ihaiu;
 using System.Security.Cryptography;
@@ -23,7 +23,7 @@ namespace Games
 			yield return StartCoroutine ( Game.Install (gameObject) );
 			Game.cricle.Show ();
 
-			Game.InitLuaEnvLaunch ();
+			Game.InitLuaEnvVersion ();
 
 
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install End");

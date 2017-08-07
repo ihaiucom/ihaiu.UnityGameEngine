@@ -42,6 +42,14 @@ namespace com.ihaiu
 		{
 			string script = null;
 
+			string lowerName = filename.ToLower();
+			if (lowerName.EndsWith(".lua")) 
+			{
+				int index = filename.LastIndexOf('.');
+				filename = filename.Substring(0, index);
+			}
+			filename = filename.Replace('.', '/');
+
 			#if UNITY_EDITOR
 			filename += ".lua";
 			filename = AssetManagerSetting.EditorRoot.Lua + "/" + filename;

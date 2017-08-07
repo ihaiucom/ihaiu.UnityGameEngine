@@ -10,7 +10,7 @@ using XLua;
 public class Game
 {
 	#region lua
-	public static LuaEnv luaEnvLaunch;
+	public static LuaEnv luaEnvVersion;
 	public static LuaEnv luaEnv;
 	#endregion
 
@@ -41,21 +41,29 @@ public class Game
     #endregion
 
 	#region LuaEnv
-	public static void InitLuaEnvLaunch()
+	public static void InitLuaEnvVersion()
 	{
-		luaEnvLaunch = new LuaEnv ();
-		luaEnvLaunch.AddLoader (Game.asset.LoadLua);
-		luaEnvLaunch.DoString ("print 'gamelaunch.GameVersionManager' ");
-//		luaEnvLaunch.DoString ("require 'gamelaunch.GameVersionManager' ");
+		luaEnvVersion = new LuaEnv ();
+		luaEnvVersion.AddLoader (Game.asset.LoadLua);
+		luaEnvVersion.DoString ("require 'gameversion.GameVersionManager' ");
 	}
 
-	public static void DestoryLuaEnvLaunch()
+	public static void DestoryLuaEnvVersion()
 	{
-		if (luaEnvLaunch != null) 
+		mainThread.StartCoroutine (DelayDestoryLuaEnvVersion());
+
+	}
+
+	private static IEnumerator DelayDestoryLuaEnvVersion()
+	{
+		yield return new WaitForSeconds(1);
+		if (luaEnvVersion != null) 
 		{
-			luaEnvLaunch.Dispose ();
-			luaEnvLaunch = null;
+			luaEnvVersion.Dispose ();
+			luaEnvVersion = null;
 		}
+		
+		Loger.Log ("Game.DelayDestoryLuaEnvVersion");
 	}
 
 	
@@ -63,7 +71,7 @@ public class Game
 	{
 		luaEnv = new LuaEnv ();
 		luaEnv.AddLoader (Game.asset.LoadLua);
-		luaEnvLaunch.DoString ("require 'gamemain.GameLaunch' ");
+		luaEnv.DoString ("require 'gamemain.GameLaunch' ");
 	}
 	#endregion
 
@@ -82,8 +90,8 @@ public class Game
 
 	public static void Update()
 	{
-		if(luaEnvLaunch != null)
-			luaEnvLaunch.Tick();
+		if(luaEnvVersion != null)
+			luaEnvVersion.Tick();
 		
 		if(luaEnv != null)
 			luaEnv.Tick();
@@ -92,8 +100,8 @@ public class Game
 	public static void OnDestroy()
 	{
 		
-		if(luaEnvLaunch != null)
-			luaEnvLaunch.Dispose();
+		if(luaEnvVersion != null)
+			luaEnvVersion.Dispose();
 		
 		if(luaEnv != null)
 			luaEnv.Dispose();

@@ -23,7 +23,7 @@ namespace XLua
     using System.Collections.Generic;
     using System.Reflection;
 
-    public class LuaEnv : IDisposable
+    public partial class LuaEnv : IDisposable
     {
         internal RealStatePtr rawL;
 
@@ -104,6 +104,9 @@ namespace XLua
 
                 AddBuildin("socket.core", StaticLuaCallbacks.LoadSocketCore);
                 AddBuildin("socket", StaticLuaCallbacks.LoadSocketCore);
+
+				// Add third party libraries
+				AddBuildinsExtend ();
 
                 LuaAPI.lua_newtable(rawL); //metatable of indexs and newindexs functions
                 LuaAPI.xlua_pushasciistring(rawL, "__index");

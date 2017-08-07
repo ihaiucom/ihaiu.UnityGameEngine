@@ -1,0 +1,25 @@
+﻿###[2017-8-7]
+
+1.添加
+Extend/LuaDLL_Extend.cs
+Extend/StaticLuaCallbacks_Extend.cs
+Extend/LuaEnv_Extend.cs
+
+2.修改 Src/Env.cs
+(1) 
+将
+public class LuaEnv : IDisposable
+改成
+public partial class LuaEnv : IDisposable
+
+
+(2)
+方法: LuaEnv()
+位置: AddBuildin("socket", StaticLuaCallbacks.LoadSocketCore);
+添加下面代码:
+
+// Add third party libraries
+AddBuildinsExtend ();
+
+
+---------------------------------------------------------------------

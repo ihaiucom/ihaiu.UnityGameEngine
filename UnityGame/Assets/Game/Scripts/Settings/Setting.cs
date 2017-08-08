@@ -5,9 +5,33 @@ namespace Games
 {
 	public class Setting 
 	{
+		public static LocalSettingConfig 		local 		= new LocalSettingConfig();
 		public static AppSettingConfig 			app 		= new AppSettingConfig();
 		public static VersionSettingConfig 		version 	= new VersionSettingConfig();
 		public static UrlSettingConfig 			url 		= new UrlSettingConfig();
+	}
+
+	[System.Serializable]
+	public class LocalSettingConfig
+	{
+		public enum LangType
+		{
+			EN_US,
+			ZH_CN,
+			ZH_TW
+		}
+
+		/** 语言 */
+		public LangType lang 		= LangType.EN_US;
+		/** 音量--背景音乐 */
+		public int 		musicVolume = 100;
+		/** 音量--声效 */
+		public int 		soundVolume = 100;
+
+		/** 开关--背景音乐 */
+		public bool		enableMusic = true;
+		/** 开关--声效 */
+		public bool		enableSound = true;
 	}
 
 

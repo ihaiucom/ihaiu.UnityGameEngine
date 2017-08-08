@@ -1,3 +1,4 @@
+require "gamemain/GameInclude"
 
 GameLaunch = {}
 local this = GameLaunch

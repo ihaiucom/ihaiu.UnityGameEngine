@@ -1,6 +1,7 @@
 AbstractModule = class("AbstractModule", 
 {
-
+	-- 模块ID
+	menuId = 0,
 })
 
 -- ======================

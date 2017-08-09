@@ -1,5 +1,5 @@
 面板ID;面板名称;资源路径;模块类型;层级;布局类型;关闭其他面板包含哪些;缓存时间;加载方式
-id;name;path;type;layer;layout;closeOtherType;cacheTime;loadType
+id;name;path;menuType;layer;layout;closeOtherType;cacheTime;loadType
 2;登录界面;module/Enter/LoginPanel;0;4;0;0;;0
 3;选择服务器;module/Enter/ServerListPanel;0;4;0;0;;0
 10;主场景;Main;1;;0;0;;4

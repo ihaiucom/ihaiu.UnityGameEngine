@@ -1,4 +1,4 @@
-ConfigReaderCsv = classmulti("ConfigReaderCsv", AbstractParseCsv, IConfigRender)
+ConfigReaderCsv = class("ConfigReaderCsv", AbstractParseCsv)
 
 local M = ConfigReaderCsv
 
@@ -7,13 +7,9 @@ local M = ConfigReaderCsv
 setmetatable(M, {__index = _G})
 setfenv(1, M)
 
--- 类型 常量
-TYPE_STRING 		= "string"
-TYPE_NUMBER 		= "number"
-TYPE_ARRAY_STRING 	= "array_string"
-TYPE_ARRAY_NUMBER 	= "array_number"
-TYPE_Other 			= "other"
 
+-- 配置类型
+configType = ConfigType.CSV
 
 -- 属性(配置路径， 是否有属性表头)
 attribute 	= ConfigCsvAttribute.New("", false)
@@ -28,63 +24,65 @@ configs 	= {}
 
 
 -- 加载
-function Load( )
-	ConfigSetting.Load(attribute.assetName, ParseAsset)
+function Load(self )
+	ConfigSetting.Load(self.attribute.assetName, self, self.ParseAsset)
 end
 
 -- 重新加载
-function Reload( )
-	configs.configs = {}
-	Load()
+function Reload(self)
+	self.configs.configs = {}
+	self:Load()
 end
 
 
 -- 根据ID获取配置
-function GetConfig(id)
-	return configs[id]
+function GetConfig(self, id)
+	return self.configs[id]
 end
 
 -- 获取所有配置
-function GetAllConfigs( )
-	return configs
+function GetAllConfigs(self )
+	return self.configs
 end
 
 
 -- 解析配置文件
-function ParseAsset(assetName, txt)
+function ParseAsset(self, assetName, txt)
 	if txt == nil then
 		error("加载配置文件出错", self.__cname, assetName)
 	end
 
 
-	obj = string.gsub(obj, "\r\n", "\n")
-	local lines = string.split(obj, '\n')
+	txt = string.gsub(txt, "\r\n", "\n")
+	local lines = string.split(txt, '\n')
 
 
 	-- 解析表头行 中文
 	local csv = string.split(lines[1], ";")
-	ParseHeadKeyCN(csv)
+	self:ParseHeadKeyCN(csv)
 
 	-- 解析表头行 英文
 	csv = string.split(lines[2], ";")
-	ParseHeadKeyEN(csv)
+	self:ParseHeadKeyEN(csv)
 
 
+	local bodyBeginIndex = 3
 	-- 解析表头行 属性ID
 	if attribute.hasHeadPropId then
+		bodyBeginIndex = 4
 		csv = string.split(lines[3], ";")
-		ParseHeadPropId(csv)
+		self:ParseHeadPropId(csv)
 	end
 
 	-- 解析Struct
-	ParseStruct()
+	self:ParseStruct()
 
 
 	-- 解析内容行
-	for i = 4,table.getn(lines) do
-		csv = string.split(lines[i], ';')
-		if table.getn(csv) == 0 or string.IsNullOrEmpty(csv[1]) then
-			ParseCsv(csv)
+	for i = bodyBeginIndex,table.getn(lines) do
+		if string.IsNullOrEmpty(lines[i]) == false then
+			csv = string.split(lines[i], ';')
+			self:ParseCsv(csv)
 		end
 	end
 
@@ -92,18 +90,18 @@ function ParseAsset(assetName, txt)
 end
 
 -- 解析Struct
-function ParseStruct(  )
+function ParseStruct(self  )
 
-	for k, v in pairs(Struct) do
-		if structInfo[k] == nil and  v ~= nil then
-			structInfo[k] = type(v)
+	for k, v in pairs(self.Struct) do
+		if self.structInfo[k] == nil and  v ~= nil then
+			self.structInfo[k] = type(v)
 		end
 	end
 end
 
-function GetStructValType( key )
-	if structInfo[key] then
-		return structInfo[key]
+function GetStructValType(self, key )
+	if self.structInfo[key] then
+		return self.structInfo[key]
 	end
 
 	return TYPE_STRING
@@ -112,27 +110,37 @@ end
 
 
 -- 解析内容行
-function ParseCsv( csv )
-	local o = Struct.New()
+function ParseCsv(self, csv )
+	local o = self.Struct.New()
+
 
 	for i,v in ipairs(csv) do
-		local key = GetHeadKey(i)
-		local valType = GetStructValType(key)
+		local key = self:GetHeadKey(i)
+		if key then
 
-		if valType == TYPE_STRING then
-			o[key] = v
-		elseif valType == TYPE_NUMBER then
-			o[key] = tonumber(v)
-		elseif valType == TYPE_ARRAY_STRING then
-			o[key] = string.split(v, ",")
-		elseif valType == TYPE_ARRAY_NUMBER then
-			o[key] = string.split(v, ",")
-			for ik, iv in ipairs(o[key]) do
-				o[key][ik] = tonumber(iv)
+			local valType = self:GetStructValType(key)
+
+			if valType == TYPE_STRING then
+				o[key] = v
+			elseif valType == TYPE_NUMBER then
+				o[key] = tonumber(v)
+			elseif valType == TYPE_ARRAY_STRING then
+				o[key] = string.split(v, ",")
+			elseif valType == TYPE_ARRAY_NUMBER then
+				o[key] = string.split(v, ",")
+				for ik, iv in ipairs(o[key]) do
+					o[key][ik] = tonumber(iv)
+				end
+			elseif o.Parse then
+				o.Parse(key, v)
 			end
-		elseif o.Parse then
-			o.Parse(key, v)
-		end
+
+		end -- if key
+
+		
 
 	end
+
+	self.configs[o.id] = o;
+
 end

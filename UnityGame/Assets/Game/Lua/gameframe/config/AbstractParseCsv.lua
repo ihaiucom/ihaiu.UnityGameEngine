@@ -15,12 +15,12 @@ headPropIds = {}
 
 
 -- 解析表头行 中文
-function ParseHeadKeyCN( csv )
+function ParseHeadKeyCN(self, csv )
 	local key = "";
 	for i, v in ipairs(csv) do
 		key = string.trim(csv[i])
-		if ~ string.IsNullOrEmpty(key) then
-			headKeyCns[i] = key
+		if string.IsNullOrEmpty(key) == false then
+			self.headKeyCns[i] = key
 		end
 	end
 end
@@ -28,23 +28,23 @@ end
 
 
 -- 解析表头行 英文
-function ParseHeadKeyEN( csv )
+function ParseHeadKeyEN(self, csv )
 	local key = "";
 	for i, v in ipairs(csv) do
 		key = string.trim(csv[i])
-		if ~ string.IsNullOrEmpty(key) then
-			headKeyEns[i] 		= key
-			headKeyIndexs[key] 	= i
+		if string.IsNullOrEmpty(key) == false then
+			self.headKeyEns[i] 			= key
+			self.headKeyIndexs[key] 	= i
 		end
 	end
 end
 
 
 -- 解析表头行 属性ID
-function ParseHeadPropId( csv )
+function ParseHeadPropId(self, csv )
 	for i, v in ipairs(csv) do
-		if ~ string.IsNullOrEmpty(csv[i]) then
-			headPropIds[i] = toInt(csv[i])
+		if string.IsNullOrEmpty(csv[i]) == false then
+			self.headPropIds[i] = toInt(csv[i])
 		end
 	end
 end
@@ -54,32 +54,32 @@ end
 
 
 -- 根据英文Key获取列Index
-function GetHeadIndex( enName )
-	if headKeyIndexs[enName] then
-		return headKeyIndexs[enName]
+function GetHeadIndex(self, enName )
+	if self.headKeyIndexs[enName] then
+		return self.headKeyIndexs[enName]
 	end	
-	error(tostring(self) .. "headKeyIndexs[" .. enName .. "] = nil")
+	error(string.format("[%s] 不存在 headKeyIndexs[%s]", self.__cname, enName) )
 	return  -1
 end
 
 
 
 -- 根据列Index获取英文Key
-function GetHeadKey( index )
-	if headKeyEns[index] then
-		return headKeyEns[index]
+function GetHeadKey(self, index )
+	if self.headKeyEns[index] then
+		return self.headKeyEns[index]
 	end	
-	error(tostring(self) .. "headKeyEns[" .. index .. "] = nil")
+	print(string.format("[%s] 不存在 headKeyEns[%d]", self.__cname, index) )
 	return  -1
 end
 
 -- 根据列获取属性ID
-function GetHeadPropId( index )
-	if headPropIds[index] then
-		return headPropIds[index]
+function GetHeadPropId(self, index )
+	if self.headPropIds[index] then
+		return self.headPropIds[index]
 	end
 
-	error(tostring(self) .. "headPropIds[" .. index .. "] = nil")
+	error(string.format("[%s] 不存在 headPropIds[%d]", self.__cname, index) )
 	return -1
 end
 

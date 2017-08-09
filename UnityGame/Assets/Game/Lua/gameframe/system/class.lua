@@ -61,14 +61,28 @@ function class(classname, super)
             cls = clone(super)
             cls.super = super
         else
-            cls = {ctor = function() end}
+            cls = {
+                    ctor = function() end
+                  }
         end
+
 
         cls.__cname = classname
         cls.__ctype = 2 -- lua
         cls.__index = cls
+        cls.__tostring = function( obj )
+            local str = "[" .. obj.__cname  .. "] {"
+            for k, v in pairs(obj) do
+                str = str .. tostring(k) .. " = " .. tostring(v) .. ", "
+            end
+
+            str = str .. "}"
+            return str
+        end
+
 
         function cls.New(...)
+
             local instance = setmetatable({}, cls)
             instance.class = cls
             if instance.ctor then

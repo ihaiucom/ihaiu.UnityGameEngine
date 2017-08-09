@@ -1,4 +1,6 @@
-IConfigRender = {}
+require "gameframe/config/ConfigType"
+
+IConfigRender = {configType = ConfigType.LUA}
 
 -- 加载
 function IConfigRender:Load( )

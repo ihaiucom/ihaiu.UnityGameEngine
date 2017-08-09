@@ -3,7 +3,7 @@ MenuManager = {
 	dict = {}, -- <int, MenuCtl>
 }
 
-local M = AbstractParseCsv
+local M = MenuManager
 setmetatable(M, {__index = _G})
 setfenv(1, M)
 

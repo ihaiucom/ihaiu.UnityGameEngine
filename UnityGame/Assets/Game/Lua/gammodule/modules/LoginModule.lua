@@ -1,1 +1,0 @@
-LoginModule = class("LoginModule", AbstractModule)

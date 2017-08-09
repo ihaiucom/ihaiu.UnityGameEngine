@@ -9,16 +9,15 @@ ModuleManager = class("ModuleManager",
 })
 
 -- 初始化
-function ModuleManager:Install( ModuleManager_List )
-	-- require "gameframe/module/ModuleManager_List"
-	require ModuleManager_List
+function ModuleManager:Install( ModuleManager_List_path )
+	require (ModuleManager_List_path)
 	self:GenerateList()
 	self:GenerateDict()
 end
 
 -- 生成字典
 function ModuleManager:GenerateDict( ... )
-	for i, v in ipairs(self:list) do
+	for i, v in ipairs(self.list) do
 		self.dict[v.menuId] = v
 	end
 end

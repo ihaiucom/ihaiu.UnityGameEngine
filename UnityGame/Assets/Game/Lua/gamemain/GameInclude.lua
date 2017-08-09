@@ -5,8 +5,10 @@
 -- System
 require "gameframe/system/define"
 require "gameframe/system/class"
+require "gameframe/system/typename"
 require "gameframe/system/StringUtil"
 require "gameframe/system/NumberUtil"
+require "gameframe/system/TableUtil"
 
 -- Config
 require "gameframe/config/ConfigSetting"
@@ -15,9 +17,9 @@ require "gameframe/config/ConfigCsvAttribute"
 require "gameframe/config/IParseCsv"
 require "gameframe/config/IConfigReader"
 require "gameframe/config/AbstractParseCsv"
-require "gameframe/config/CofnigReaderLua"
-require "gameframe/config/CofnigReaderCsv"
-require "gameframe/config/CofnigReaderJson"
+require "gameframe/config/ConfigReaderLua"
+require "gameframe/config/ConfigReaderCsv"
+require "gameframe/config/ConfigReaderJson"
 
 
 

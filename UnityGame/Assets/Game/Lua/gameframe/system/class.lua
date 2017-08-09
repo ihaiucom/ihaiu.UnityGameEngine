@@ -80,3 +80,47 @@ function class(classname, super)
 
     return cls
 end
+
+
+
+-- 在多个父类中查找字段k
+function search(k, pParentList)
+    for i = 1, #pParentList do
+        local v = pParentList[i][k]
+        if v then
+            return v
+        end
+    end
+end
+
+
+function classmulti(classname ,...)
+    local c = {} -- 新类
+    local parents = {...}
+
+    -- 类在其元表中搜索方法
+    setmetatable(c, {__index = function (t, k) return search(k, parents) end})
+
+    -- 将c作为其实例的元表
+    c.__index = c
+    c.__cname = classname
+    c.super = {}
+    setmetatable(c.super, {__index = function (t, k) return search(k, parents) end})
+
+
+    -- 为这个新类建立一个新的构造函数
+    function c:New(...)
+        local o =  {}
+        setmetatable(o, self)
+        o.class = cls
+        if o.ctor then
+            o:ctor(...)
+        end
+
+        -- self.__index = self 这里不用设置了，在上面已经设置了c.__index = c
+        return o
+    end
+
+    -- 返回新的类（原型）
+    return c
+end

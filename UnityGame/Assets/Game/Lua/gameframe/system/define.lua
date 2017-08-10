@@ -2,6 +2,7 @@ UnityEngine 	= CS.UnityEngine
 
 Application		= UnityEngine.Application
 SystemInfo		= UnityEngine.SystemInfo
+Time			= UnityEngine.Time
 
 GameObject 		= UnityEngine.GameObject
 Transform 		= UnityEngine.Transform

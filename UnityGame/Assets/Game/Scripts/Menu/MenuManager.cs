@@ -45,7 +45,7 @@ namespace Games
                     return;
                 }
 
-				switch(menuConfig.type)
+				switch(menuConfig.menuType)
 				{
 					case MenuType.Scene:
 						menuCtl = new MenuCtlForScene();
@@ -110,7 +110,7 @@ namespace Games
             {
                 if (list[i].state == MenuCtl.StateType.Closed)
                 {
-                    list[i].cacheTime += Time.deltaTime;
+                    list[i].cacheTime += Time.unscaledDeltaTime;
 
                     if (list[i].config.cacheTime >= 0 && list[i].cacheTime > list[i].config.cacheTime)
                     {

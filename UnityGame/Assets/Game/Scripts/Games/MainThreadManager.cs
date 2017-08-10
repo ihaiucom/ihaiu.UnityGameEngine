@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using XLua;
 
 namespace Games
 {
@@ -9,8 +10,9 @@ namespace Games
     {
 
         public delegate void UpdateEvent();
-        public UpdateEvent unityUpdate = null;
-        public UpdateEvent unityFixedUpdate = null;
+        public event UpdateEvent 	unityUpdate;
+		public event UpdateEvent 	unityFixedUpdate;
+		public event Action 		unityDestory;
 
         public bool UseFixedUpdate = false;
 
@@ -88,6 +90,12 @@ namespace Games
             if (unityFixedUpdate != null)
                 unityFixedUpdate();
         }
+
+		private void OnDestory()
+		{
+			if (unityDestory != null)
+				unityDestory ();
+		}
 
         private Dictionary<IEnumerator, Coroutine> coroutines = new Dictionary<IEnumerator, Coroutine>();
 		public Coroutine MStartCoroutine(IEnumerator routine)

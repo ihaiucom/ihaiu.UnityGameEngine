@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.ihaiu;
 
@@ -13,7 +13,7 @@ namespace Games
 			config.id		= csv.GetInt32(GetHeadIndex("id"));
 			config.name		= csv.GetString(GetHeadIndex("name"));
 			config.path		= csv.GetString(GetHeadIndex("path"));
-			config.type		= (MenuType) 		csv.GetInt32(GetHeadIndex("type"));
+			config.menuType		= (MenuType) 		csv.GetInt32(GetHeadIndex("menuType"));
 			config.layer	= (UILayer.Layer)	csv.GetInt32(GetHeadIndex("layer"));
 			config.layout	= (MenuLayout)		csv.GetInt32(GetHeadIndex("layout"));
 			config.closeOtherType	= (MenuCloseOtherType)	csv.GetInt32(GetHeadIndex("closeOtherType"));

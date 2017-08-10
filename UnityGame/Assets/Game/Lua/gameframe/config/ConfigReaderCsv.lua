@@ -123,7 +123,10 @@ function ParseCsv(self, csv )
 			if valType == TYPE_STRING then
 				o[key] = v
 			elseif valType == TYPE_NUMBER then
-				o[key] = tonumber(v)
+				o[key] = v ~= "" and tonumber(v) or 0
+			elseif valType == TYPE_BOOLEAN then
+				v = v ~= "" and tonumber(v) or 0
+				o[key] = v ~= 0
 			elseif valType == TYPE_ARRAY_STRING then
 				o[key] = string.split(v, ",")
 			elseif valType == TYPE_ARRAY_NUMBER then

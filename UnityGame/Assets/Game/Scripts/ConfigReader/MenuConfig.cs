@@ -12,7 +12,7 @@ namespace Games
 		/** 预设路径 或者 场景名称 */
         public string               path;
 		/** 类型 */
-        public MenuType             type;
+        public MenuType             menuType;
 		/** UI层级 */
         public UILayer.Layer        layer;
 		/** 布局方式 */

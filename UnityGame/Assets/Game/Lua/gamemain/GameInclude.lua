@@ -9,6 +9,20 @@ require "gameframe/system/typename"
 require "gameframe/system/StringUtil"
 require "gameframe/system/NumberUtil"
 require "gameframe/system/TableUtil"
+require "gameframe/system/Event"
+
+-- Unity
+require "gameframe/unity/MainThreadManager"
+
+-- Asset
+require "gameframe/asset/AssetManager"
+
+
+-- Loader
+require "gameframe/loader/LoaderId"
+require "gameframe/loader/LoaderCtl"
+require "gameframe/loader/LoaderPanel"
+require "gameframe/loader/LoaderManager"
 
 -- Config
 require "gameframe/config/ConfigSetting"

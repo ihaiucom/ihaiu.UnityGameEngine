@@ -19,16 +19,17 @@ public static class GameLuaGenConfig_GameFrame
     public static List<Type> LuaCallCSharp = new List<Type>() {
 				typeof(Game),
 				typeof(Games.MainThreadManager),
+				typeof(Games.UILayer),
+				typeof(Games.UILayer.Layer),
 				typeof(com.ihaiu.AssetManager),
             };
 
     //C#静态调用Lua的配置（包括事件的原型），仅可以配delegate，interface
     [CSharpCallLua]
     public static List<Type> CSharpCallLua = new List<Type>() {
-               
-            };
-
-    //黑名单
+	};
+	
+	//黑名单
     [BlackList]
     public static List<List<string>> BlackList = new List<List<string>>()  {
                

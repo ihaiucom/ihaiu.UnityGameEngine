@@ -13,12 +13,19 @@ setmetatable(Game, Game)
 -- 初始化
 function Game:Install( ... )
 	print("Game:Install")
-	Game.config 	= ConfigManager
-	Game.module 	= ModuleManager
-	Game.menu 		= MenuManager
+	Game.csMainThread	= CS.Game.mainThread
+	Game.csAsset		= CS.Game.asset
 
+	Game.mianThread		= MainThreadManager
+	Game.asset			= AssetManager
+	Game.loader			= LoaderManager
+	Game.config 		= ConfigManager
+	Game.modules 		= ModuleManager
+	Game.menu 			= MenuManager
+
+	Game.mianThread:Install()
 	Game.config:Install()
-	Game.module:Install("gamemodule/modules/ModuleManager_List")
+	Game.modules:Install("gamemodule/modules/ModuleManager_List")
 	Game.menu:Install()
 
 

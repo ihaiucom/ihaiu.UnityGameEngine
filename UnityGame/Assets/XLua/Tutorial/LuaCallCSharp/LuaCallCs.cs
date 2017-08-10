@@ -243,6 +243,9 @@ public class LuaCallCs : MonoBehaviour {
            print(CS.Tutorial.DrivenClass.TestEnumInner.E3)
            assert(CS.Tutorial.BaseClass.TestEnumInner == nil)
 
+           print('枚举类型==================', CS.Tutorial.DrivenClass.TestEnumInner.E4, CS.Tutorial.DrivenClass.TestEnumInner.E4.Value==1)
+
+
            --Delegate
            testobj.TestDelegate('hello') --直接调用
            local function lua_delegate(str)

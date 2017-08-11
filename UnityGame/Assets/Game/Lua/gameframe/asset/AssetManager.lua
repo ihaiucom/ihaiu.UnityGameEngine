@@ -10,8 +10,13 @@ function M:LoadConfig(path, tab, fun )
 end
 
 -- 加载
-function M:Load( path, tabl, fun )
+function M:Load( path, tab, fun )
 	Game.csAsset:Load(path, function ( path, obj )
 		fun(tab, path, obj)
 	end)
+end
+
+-- 尝试获取资源 
+function M:TryGet( path )
+	return Game.csAsset:TryGetAsset(path)
 end

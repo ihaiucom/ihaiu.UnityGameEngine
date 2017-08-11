@@ -27,6 +27,7 @@ public static class GameLuaGenConfig_GameFrame
     //C#静态调用Lua的配置（包括事件的原型），仅可以配delegate，interface
     [CSharpCallLua]
     public static List<Type> CSharpCallLua = new List<Type>() {
+		typeof(Games.MainThreadManager.UpdateEvent),
 	};
 	
 	//黑名单

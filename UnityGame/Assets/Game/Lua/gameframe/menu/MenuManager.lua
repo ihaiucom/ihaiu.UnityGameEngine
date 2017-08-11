@@ -10,7 +10,8 @@ function M:GetMenuCtl( menuId )
 	if self.dict[menuId] then
 		return self.dict[menuId]
 	end
-	error("MenuManager:GetMenuCtl dict 不存在menuId=")
+
+	-- error("MenuManager:GetMenuCtl dict 不存在menuId=")
 	return nil
 end
 
@@ -26,6 +27,7 @@ end
 function M:Open(menuId, ...)
 	local menuCtl = self:GetMenuCtl(menuId)
 
+
 	if menuCtl == nil then
 		local menuConfig = Game.config.menu:GetConfig(menuId)
 		if menuConfig == nil then
@@ -33,7 +35,7 @@ function M:Open(menuId, ...)
 			return
 		end
 
-		if menuConfig.menuType == menuType.Panel then
+		if menuConfig.menuType == MenuType.Panel then
 			menuCtl = MenuCtlForPanel.New()
 		else
 			menuCtl = MenuCtlForScene.New()
@@ -42,13 +44,16 @@ function M:Open(menuId, ...)
 		menuCtl.menuId = menuId
 		menuCtl.config = menuConfig
 		menuCtl.moduleCtl = Game.modules:GetModule(menuId)
-		if menuCtl.module == nil then
+		if menuCtl.moduleCtl == nil then
 			error(string.format("找不到Module MenuManager.Open menuId=%s", menuId))
 		end
 
-		dict[menuId] = menuCtl
+		menuCtl.moduleCtl.menuId = menuId
+
+		self.dict[menuId] = menuCtl
 
 	end
+	
 
 	menuCtl:Open(...)
 end
@@ -82,5 +87,5 @@ end
 
 -- 初始化
 function M:Install( ... )
-	Game.mainThread:AddUpdateListen(self, OnUpdate )
+	Game.mainThread:AddUpdateListen(self, self.OnUpdate )
 end

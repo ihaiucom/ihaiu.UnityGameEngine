@@ -6,6 +6,11 @@ BaseView = class("BaseView",
 	csView 		= nil,
 })
 
+-- 是否销毁了 或者 没有初始化
+function BaseView:IsDestroyed( )
+	return self.gameObject == nil
+end
+
 -- 设置实例对象为自己
 function BaseView:SetInstall( )
 	self.instance = self
@@ -16,7 +21,7 @@ function BaseView:BindGameObject(gameObject)
 	self.gameObject = gameObject
 	self.transform 	= gameObject.transform
 	self:SetInstall()
-	cs.LuaView.AddView(self, gameObject)
+	CS.LuaView.AddView(self, gameObject)
 end
 
 
@@ -61,6 +66,7 @@ function BaseView:CsDestroy( )
 	self.transform = nil
 	self.csView		= nil
 end
+
 
 
 

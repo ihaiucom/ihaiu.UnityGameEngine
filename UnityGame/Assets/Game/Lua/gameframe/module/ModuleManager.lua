@@ -17,7 +17,10 @@ end
 
 -- 生成字典
 function ModuleManager:GenerateDict( ... )
+	print("===ModuleManager:GenerateDict")
+	print("self.list", self, self.list, #self.list)
 	for i, v in ipairs(self.list) do
+		print("==========", i, v)
 		self.dict[v.menuId] = v
 	end
 end

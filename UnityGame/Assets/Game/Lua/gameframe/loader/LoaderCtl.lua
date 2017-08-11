@@ -12,7 +12,7 @@ local M = LoaderCtl
 function M:Open(  )
 	self.isOpen = true
 
-	if self.loadConfig == nil or string.IsNullOrEmpty(self.loadConfig.path) then
+	if self.loaderConfig == nil or string.IsNullOrEmpty(self.loaderConfig.path) then
 		Game.cricle:Show()
 	else
 		if self.loaderPanel then
@@ -32,8 +32,8 @@ function M:Close(  )
 		self.loaderPanel:Hide()
 	end
 
-	if string.IsNullOrEmpty(self.loadConfig.path) then
-		Game.cricle:Show()
+	if string.IsNullOrEmpty(self.loaderConfig.path) then
+		Game.cricle:Hide()
 	end
 end
 
@@ -58,6 +58,7 @@ end
 
 function M:OnLoadPanelAsset( path, obj )
 
+
 	if self.loaderConfig.isShowCircle then
 		Game.cricle:Hide()
 	end
@@ -69,7 +70,10 @@ function M:OnLoadPanelAsset( path, obj )
 
 
 	local go = GameObject.Instantiate(obj)
+	print(Game.loader:GetLoaderPanelClass(self.loaderId))
+
 	self.loaderPanel = Game.loader:GetLoaderPanelClass(self.loaderId).New()
+	print(self.loaderPanel, self.loaderPanel.BindGameObject)
 	self.loaderPanel:BindGameObject(go)
 	self.loaderPanel:SetLayout()
 	self.loaderPanel:Show()

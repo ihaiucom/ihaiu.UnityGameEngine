@@ -53,3 +53,16 @@ function M:CloseAll(  )
 		v:Close()
 	end
 end
+
+-- 设置进度
+function M:SetProgress( loaderId, progress )
+	local loaderCtl = self:GetLoaderCtl(loaderId)
+
+	if loaderCtl == nil then
+		self:Open(loaderId)
+	end
+
+	if loaderCtl then
+		loaderCtl:SetProgress(progress)
+	end
+end

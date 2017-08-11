@@ -1,15 +1,30 @@
 MenuCtl = class("MenuCtl",{
 	-- 模块ID
-	menuId = 0,
+	menuId 		= 0,
 
 	-- MenuConfig
-	config = nil,
+	config 		= nil,
 
 	-- 模块接口,继承自AbstractModule
-	moduleCtl = nil,
+	moduleCtl 	= nil,
+
+	-- 状态
+	-- MenuCtlStateType
+	state 		= MenuCtlStateType.Closed ,
 
 	-- 缓存时间
-	cacheTime = 0,
+	cacheTime 	= 0,
+
+	-- 加载进度面板控制器
+	loaderCtl 	= nil,
+
+	-- 预加载资源
+	_preloadAssets 		= {},
+	_preloadState 		= MenuCtlPreloadStateType.None, 
+	_preloadCount 		= 0,
+	_preloadNum 		= 0,
+	_preloadIsStop		= false,
+
 })
 
 local M = MenuCtl
@@ -35,7 +50,7 @@ function M:Destory( )
 	self:OnDestory()
 end
 
--- [抽象]
+-- [抽象]销毁
 function M:OnDestory( )
 	
 end
@@ -45,7 +60,7 @@ end
 -- 获取模块资源列表
 function M:GetLoadAssets( )
 	if self.moduleCtl then
-		return moduleCtl:GetLoadAssets()
+		return self.moduleCtl:GetLoadAssets()
 	end
 
 	return nil
@@ -87,4 +102,107 @@ function M:CloseOther(  )
 		end
 	end
 
+end
+
+
+-- 加载资源
+function M:Load(  )
+	self.state = MenuCtlStateType.Loading
+	self._preloadAssets = self:GetLoadAssets()
+	print("self._preloadAssets", self._preloadAssets)
+	if self._preloadAssets then
+		self:StartLoadAssets()
+	else
+		self:OnLoadAssetsComplete()
+	end
+end
+
+
+function M:StartLoadAssets( )
+
+	print("====打开模块 加载资源 StartLoadAssets", self._preloadState)
+
+    self._preloadIsStop = false
+    if self._preloadState == MenuCtlPreloadStateType.None then
+		local co = coroutine.create(self.LoadAssets)
+		coroutine.resume(co, self)
+	end
+end
+
+
+function M:StopLoadAssets( )
+	self._preloadIsStop = true
+end
+
+function M:LoadAssets( )
+
+	print("====打开模块 加载资源 LoadAssets", self)
+	self:LoaderOpen()
+	self._preloadState 		= MenuCtlPreloadStateType.Loading 
+	self._preloadCount 		= table.getn(self._preloadAssets)
+	self._preloadNum		= 0
+	print("_preloadCount", self._preloadCount)
+
+
+    self:SetLoaderProgress(0)
+
+
+	print("====打开模块 加载资源 LoadAssets", self, self._preloadCount)
+	for i = 1, self._preloadCount do
+
+		print(i)
+		if self._preloadIsStop then
+			break
+		end
+
+		Game.asset:Load(self._preloadAssets[i], self, OnLoadAsset)
+		self._preloadNum = self._preloadNum + 1
+        yield_return(CS.UnityEngine.WaitForEndOfFrame())
+        self:SetLoaderProgress(self._preloadNum / self._preloadCount)
+    end
+
+
+	self._preloadState 		= MenuCtlPreloadStateType.None 
+
+    if ~self._preloadIsStop then
+    	self.__preloadComplete = true
+    	self:OnLoadAssetsComplete()
+    end
+
+
+    self._preloadIsStop 	= false
+	self:LoaderClose()
+end
+
+-- [抽象] 当预加载资源被加载
+function M:OnLoadAsset( path, obj )
+	
+end
+
+
+
+
+-- [抽象] 预加载资源加载完成
+function M:OnLoadAssetsComplete(  )
+	
+end
+
+
+
+
+-- [抽象] 进度条打开
+function M:LoaderOpen( )
+	
+end
+
+
+-- [抽象] 进度条关闭
+function M:LoaderClose( )
+	
+end
+
+
+-- [抽象] 设置进度
+function M:SetLoaderProgress( progress )
+	
 end

@@ -6,6 +6,7 @@
 require "gameframe/system/define"
 require "gameframe/system/class"
 require "gameframe/system/typename"
+require "gameframe/system/coroutine"
 require "gameframe/system/StringUtil"
 require "gameframe/system/NumberUtil"
 require "gameframe/system/TableUtil"
@@ -13,9 +14,12 @@ require "gameframe/system/Event"
 
 -- Unity
 require "gameframe/unity/MainThreadManager"
+require "gameframe/module/BaseView"
 
 -- Asset
 require "gameframe/asset/AssetManager"
+
+
 
 
 -- Loader
@@ -38,6 +42,15 @@ require "gameframe/config/ConfigReaderJson"
 
 
 -- Menu
+require "gameframe/menu/MenuId"
+require "gameframe/menu/MenuType"
+require "gameframe/menu/MenuLayout"
+require "gameframe/menu/MenuCloseOtherType"
+require "gameframe/menu/MenuCtlStateType"
+require "gameframe/menu/MenuCtlPreloadStateType"
+require "gameframe/menu/MenuCtl"
+require "gameframe/menu/MenuCtlForPanel"
+require "gameframe/menu/MenuCtlForScene"
 require "gameframe/menu/MenuManager"
 
 -- Module
@@ -67,4 +80,15 @@ require "gamemain/Game"
 
 -- Config
 require "gamemodule/configreaders/ConfigManager"
+
+-- Module
+require "gamemodule/modules/LoginModule"
+require "gamemodule/modules/HomeModule"
+
+
+-- enter
+require "gamemodule/enter/LoginPanel"
+require "gamemodule/enter/RegisterPanel"
+require "gamemodule/enter/ServerPanel"
+require "gamemodule/enter/LoginWindow"
 

@@ -5,6 +5,9 @@ AbstractModule = class("AbstractModule",
 
 	-- 返回模块
 	backMenuId = -1,
+
+	-- 视图Class,继承自AbstractView的。注意是Class，不是实例对象
+	ViewClass = AbstractView,
 })
 
 -- ======================

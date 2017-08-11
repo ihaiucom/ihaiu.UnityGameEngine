@@ -51,13 +51,23 @@ namespace com.ihaiu
 			filename = filename.Replace('.', '/');
 
 			#if UNITY_EDITOR
-			filename += ".lua";
-			filename = AssetManagerSetting.EditorRoot.Lua + "/" + filename;
-			script =  File.ReadAllText(filename);
+			filename = filename + ".lua";
+			string path = AssetManagerSetting.EditorRoot.Lua + "/" + filename;
+			if(File.Exists(path))
+			{
+				script =  File.ReadAllText(path);
+				filename = path;
+			}
+			else
+			{
+				TextAsset obj = Resources.Load<TextAsset> (filename);
+				if (obj != null)
+				script =  obj.text;
+			}
 			#else
 			TextAsset obj = Resources.Load<TextAsset> (filename);
 			if (obj != null)
-				string script =  obj.text;
+				script =  obj.text;
 			#endif
 
 			if(script != null)
@@ -171,6 +181,27 @@ namespace com.ihaiu
 		public void Unload(string assetBundleName, string filename)
 		{
 
+		}
+		#endregion
+
+		
+		#region 获取
+		/** 尝试获取Asset */
+		public T TryGetAsset<T>(string filename) where T : UnityEngine.Object
+		{
+			return (T) TryGetAsset(filename, typeof(T));
+		}
+
+		
+		public UnityEngine.Object TryGetAsset(string filename)
+		{
+			return TryGetAsset(filename, TYPE_OBJECT);
+		}
+		
+		public UnityEngine.Object TryGetAsset(string filename, Type type)
+		{
+			// 临时这么写
+			return Resources.Load (filename, type);
 		}
 		#endregion
 

@@ -28,4 +28,8 @@ MenuConfig = class("MenuConfig", {
 		-- 关闭面板后缓存多长时间销毁（-1永久不销毁 0下一帧销毁 大于0会缓存时间秒） 
         cacheTime = -1,
 
+        -- 加载面板类型
+        -- LoaderId
+        loaderType = 0,
+
 })

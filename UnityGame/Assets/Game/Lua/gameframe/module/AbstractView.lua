@@ -6,7 +6,12 @@ local M = AbstractView
 
 -- 设置Layout
 function AbstractView:SetLayout( layer, layout )
-	self.transform.SetParent(   Game.uiLayer:GetLayer( UILayerId.__CastFrom(layer) ), false   )
+
+print("设置Layout", layer, layout)
+print(UILayerId.__CastFrom(layer))
+print(Game.uiLayer:GetLayer( UILayerId.__CastFrom(layer) ))
+
+	self.transform:SetParent(   Game.uiLayer:GetLayer( UILayerId.__CastFrom(layer) ), false   )
 	self.transform.localScale = CS.UnityEngine.Vector3.one
 
 	-- 屏幕大小

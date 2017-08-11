@@ -81,14 +81,17 @@ require "gamemain/Game"
 -- Config
 require "gamemodule/configreaders/ConfigManager"
 
--- Module
-require "gamemodule/modules/LoginModule"
-require "gamemodule/modules/HomeModule"
-
 
 -- enter
 require "gamemodule/enter/LoginPanel"
 require "gamemodule/enter/RegisterPanel"
 require "gamemodule/enter/ServerPanel"
 require "gamemodule/enter/LoginWindow"
+
+
+
+
+-- Module
+require "gamemodule/modules/LoginModule"
+require "gamemodule/modules/HomeModule"
 

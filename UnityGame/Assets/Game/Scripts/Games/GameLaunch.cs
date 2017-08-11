@@ -21,7 +21,7 @@ namespace Games
 			Loger.Log (LOG_OPEN, LOG_TAG, "GameLaunch.Install Begin");
 
 			yield return StartCoroutine ( Game.Install (gameObject) );
-			Game.cricle.Show ();
+			//Game.cricle.Show ();
 
 			Game.InitLuaEnvVersion ();
 

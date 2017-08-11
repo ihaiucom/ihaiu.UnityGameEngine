@@ -64,20 +64,34 @@ end
 
 -- [实现抽象] 预加载资源加载完成
 function M:OnLoadAssetsComplete(  )
+
+	print("==========[实现抽象] 预加载资源加载完成 OnLoadAssetsComplete")
 	if self.config.path == nil then
 		return
 	end
 
 	local obj = Game.asset:TryGet(self.config.path)
+
+	print("===obj", obj)
+
 	if obj == nil then
 		error(string.format("没有加载到面板预设资源 %s menuId=%d, path=%s", self.__cname, self.menuId, self.config.path))
 	end
 
 	local go = GameObject.Instantiate(obj)
+
+	print("===go", go)
+
+
+	print("===self.moduleCtl.ViewClass", self.moduleCtl.ViewClass)
+
 	self.moduleView 				= self.moduleCtl.ViewClass.New()
+
+	print("===self.moduleView ", self.moduleView )
+
+	self.moduleView.gameObject 		= go
+	self.moduleView.transform 		= go.transform
 	self.moduleView.module 			= self.moduleCtl
-	self.moduleView.gameObject 		= self.go
-	self.moduleView.transform 		= self.go.transform
 	self.moduleView:SetLayout(self.config.layer, self.config.layout)
 	self.moduleView:BindGameObject(go)
 	self:SetModuleViewShow()
@@ -105,7 +119,8 @@ end
 
 -- [实现抽象] 进度条关闭
 function M:LoaderClose( )
-	print("====进度条关闭 LoaderClose", self)
+	print("====进度条关闭 LoaderClose")
+
 	if self.loaderCtl then
 		self.loaderCtl:Close()
 	end
@@ -116,7 +131,8 @@ end
 -- [实现抽象] 设置进度
 function M:SetLoaderProgress( progress )
 
-	print("====设置进度 SetLoaderProgress", self, progress)
+	print("====设置进度 SetLoaderProgress", self.__cname, progress)
+
 	if self.loaderCtl then
 		self.loaderCtl:SetProgerss(progress)
 	end

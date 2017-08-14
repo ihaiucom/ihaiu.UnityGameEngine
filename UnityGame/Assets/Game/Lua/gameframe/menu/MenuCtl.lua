@@ -109,7 +109,6 @@ end
 function M:Load(  )
 	self.state = MenuCtlStateType.Loading
 	self._preloadAssets = self:GetLoadAssets()
-	print("self._preloadAssets", self._preloadAssets)
 	if self._preloadAssets then
 		self:StartLoadAssets()
 	else
@@ -120,7 +119,6 @@ end
 
 function M:StartLoadAssets( )
 
-	print("====打开模块 加载资源 StartLoadAssets", self._preloadState)
 
     self._preloadIsStop = false
     if self._preloadState == MenuCtlPreloadStateType.None then
@@ -136,56 +134,39 @@ end
 
 function M:LoadAssets( )
 
-	print("====打开模块 加载资源 LoadAssets", self)
 	self:LoaderOpen()
 	self._preloadState 		= MenuCtlPreloadStateType.Loading 
 	self._preloadCount 		= table.getn(self._preloadAssets)
 	self._preloadNum		= 0
-	print("==== _preloadCount", self._preloadCount)
-	print("==== self:SetLoaderProgress(0) begin")
 
 
     self:SetLoaderProgress(0)
-	print("==== self:SetLoaderProgress(0) end")
 
 
-	print("====AAAAAAA")
 	for i, path in ipairs(self._preloadAssets) do
 
-		print("i", i, self._preloadIsStop, path)
 		if self._preloadIsStop then
 			break
 		end
 
-		print("Game.asset:Load")
 		Game.asset:Load(path, self, self.OnLoadAsset)
 		self._preloadNum = self._preloadNum + 1
-		print("yield_return", yield_return)
-		print("CS.UnityEngine.WaitForEndOfFrame()", CS.UnityEngine.WaitForEndOfFrame)
         yield_return(CS.UnityEngine.WaitForEndOfFrame())
-        print("========yield_return(CS.UnityEngine.WaitForEndOfFrame()) End")
         self:SetLoaderProgress(self._preloadNum / self._preloadCount)
     end
 
-    print("===加载完成", self._preloadIsStop)
-
-
-    print("=== MenuCtlPreloadStateType", MenuCtlPreloadStateType)
 	self._preloadState 		= MenuCtlPreloadStateType.None 
 
     if self._preloadIsStop == false then
     	self.__preloadComplete = true
 
 
-    	print("===self:OnLoadAssetsComplete()")
     	self:OnLoadAssetsComplete()
     end
 
 
     self._preloadIsStop 	= false
-    	print("===self:LoaderClose() B")
 	self:LoaderClose()
-    	print("===self:LoaderClose() E")
 end
 
 -- [抽象] 当预加载资源被加载
@@ -213,12 +194,10 @@ end
 -- [抽象] 进度条关闭
 function M:LoaderClose( )
 	
-	print("====[抽象] 进度条关闭 LoaderClose")
 end
 
 
 -- [抽象] 设置进度
 function M:SetLoaderProgress( progress )
 	
-	print("====[抽象] 设置进度 SetLoaderProgress")
 end

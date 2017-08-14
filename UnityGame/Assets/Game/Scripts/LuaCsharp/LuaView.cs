@@ -91,13 +91,13 @@ public class LuaView : MonoBehaviour
 	
 	void OnDisable()
 	{
-		if(luaView != null) luaView.CsDisable();
+		if(!Game.IsDestroy && luaView != null) luaView.CsDisable();
 	}
 
 	
 	void OnDestroy()
 	{
-		if(luaView != null) luaView.CsDestroy();
+		if(!Game.IsDestroy && luaView != null) luaView.CsDestroy();
 
 		luaView = null;
 	}

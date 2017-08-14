@@ -8,9 +8,4 @@ function ModuleManager:GenerateList( ... )
 		HomeModule,
 	}
 
-	print("LoginModule=", LoginModule)
-	print("HomeModule=", HomeModule)
-
-	print("self.list", self, self.list, #self.list)
-
 end

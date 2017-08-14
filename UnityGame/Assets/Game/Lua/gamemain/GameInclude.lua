@@ -14,6 +14,7 @@ require "gameframe/system/Event"
 
 -- Unity
 require "gameframe/unity/MainThreadManager"
+require "gameframe/module/BasePanel"
 require "gameframe/module/BaseView"
 
 -- Asset
@@ -61,13 +62,16 @@ require "gameframe/module/ModuleManager"
 
 
 
+-- =================================
+-- gameglobal
+-- ---------------------------------
+require "gameglobal/PlayerPrefs"
 
 
 
 -- =================================
 -- gamemain
 -- ---------------------------------
-
 -- Game
 require "gamemain/GameDefine"
 require "gamemain/core/Lang"

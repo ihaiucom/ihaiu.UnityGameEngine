@@ -15,7 +15,8 @@ public class Game
 	#endregion
 
 
-    #region gameframe
+	#region gameframe
+	public static bool					IsDestroy { get; private set;}
 	public static GameObject 			go;
 	public static MainThreadManager 	mainThread;
     public static AssetManager 			asset;
@@ -99,11 +100,21 @@ public class Game
 
 	public static void OnDestroy()
 	{
+		IsDestroy = true;
 		
 		if(luaEnvVersion != null)
 			luaEnvVersion.Dispose();
 		
-		if(luaEnv != null)
-			luaEnv.Dispose();
+		if (luaEnv != null) 
+		{
+			try
+			{
+				luaEnv.Dispose ();
+			}
+			catch(System.Exception e)
+			{
+				Debug.Log(e.ToString());
+			}
+		}
 	}
 }

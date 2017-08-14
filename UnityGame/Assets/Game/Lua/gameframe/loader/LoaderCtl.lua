@@ -70,10 +70,8 @@ function M:OnLoadPanelAsset( path, obj )
 
 
 	local go = GameObject.Instantiate(obj)
-	print(Game.loader:GetLoaderPanelClass(self.loaderId))
 
 	self.loaderPanel = Game.loader:GetLoaderPanelClass(self.loaderId).New()
-	print(self.loaderPanel, self.loaderPanel.BindGameObject)
 	self.loaderPanel:BindGameObject(go)
 	self.loaderPanel:SetLayout()
 	self.loaderPanel:Show()

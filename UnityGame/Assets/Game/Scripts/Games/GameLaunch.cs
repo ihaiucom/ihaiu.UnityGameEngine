@@ -37,6 +37,7 @@ namespace Games
 		
 		void OnDestroy()
 		{
+			Debug.Log("GameOnDestory");
 			Game.OnDestroy ();
 		}
 		

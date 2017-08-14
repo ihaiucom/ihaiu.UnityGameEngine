@@ -23,6 +23,8 @@ function Game:Install( ... )
 	Game.modules 		= ModuleManager
 	Game.menu 			= MenuManager
 
+	PlayerPrefs.SetAppPrefix(Setting.app.appPrefix)
+
 	Game.mainThread:Install()
 	Game.config:Install()
 	Game.modules:Install("gamemodule/modules/ModuleManager_List")

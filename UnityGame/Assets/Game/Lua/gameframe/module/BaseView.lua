@@ -26,6 +26,15 @@ end
 
 
 -- ==============================================
+-- 扩展方法，方便调用
+-- ----------------------------------------------
+function BaseView:FindChild( childName )
+	return self.transform:FindChild(childName)
+end
+
+
+
+-- ==============================================
 -- C#调用
 -- ----------------------------------------------
 function BaseView:CsStart( gameObject, csView  )

@@ -17,12 +17,18 @@ public static class GameLuaGenConfig_GameFrame
     //lua中要使用到C#库的配置，比如C#标准库，或者Unity API，第三方库等。
     [LuaCallCSharp]
     public static List<Type> LuaCallCSharp = new List<Type>() {
-				typeof(Game),
-				typeof(Games.MainThreadManager),
-				typeof(Games.UILayer),
-				typeof(Games.UILayer.Layer),
-				typeof(com.ihaiu.AssetManager),
-            };
+		typeof(Game),
+		typeof(Games.MainThreadManager),
+		typeof(Games.UILayer),
+		typeof(Games.UILayer.Layer),
+		typeof(com.ihaiu.AssetManager),
+		typeof(PlayerPrefsUtil),
+		typeof(Games.Setting),
+		typeof(Games.LocalSettingConfig),
+		typeof(Games.AppSettingConfig),
+		typeof(Games.VersionSettingConfig),
+		typeof(Games.UrlSettingConfig),
+	};
 
     //C#静态调用Lua的配置（包括事件的原型），仅可以配delegate，interface
     [CSharpCallLua]

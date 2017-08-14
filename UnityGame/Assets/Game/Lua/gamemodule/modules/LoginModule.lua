@@ -5,5 +5,3 @@ local M = LoginModule
 M.menuId 		= MenuId.Login
 -- 视图Class
 M.ViewClass 	= LoginWindow
-
-print("AAAAAAAAAAAAAAAAAAAAA", LoginWindow)

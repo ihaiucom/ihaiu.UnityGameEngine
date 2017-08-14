@@ -11,8 +11,13 @@ local M = Event
 
 function M:ctor( eventName )
 	self.eventName = eventName
+	self.list = {}
 end
 
+-- 获取有多少个监听
+function M:GetCount( ... )
+	return #self.list
+end
 
 -- 查找
 function M:Find(tab, fun )

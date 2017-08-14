@@ -1,10 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Games;
 
 public class PlayerPrefsUtil 
 {
-	public static bool UseUserId = true;
+	private static string UserKey 	= "0";
+	private static string AppPrefix = "App_";
+
+	public static void SetUserKey(string value)
+	{
+		UserKey = value;
+	}
+
+	
+	public static void SetAppPrefix(string value)
+	{
+		AppPrefix = value;
+	}
 
 	/// <summary>
 	/// 生成一个Key名
@@ -14,12 +25,10 @@ public class PlayerPrefsUtil
 	}
 
     public static string GetKey(string key, bool isBindUserId) {
-//        if (UseUserId && isBindUserId)
-//			return Setting.app.appPrefix + Game.user.uid + "_" + key;
-//        else
-//			return Setting.app.appPrefix + "_" + key;
-
-		return "_" + key;
+        if (isBindUserId)
+			return AppPrefix + UserKey + "_" + key;
+        else
+            return AppPrefix + key;
     }
 
 	
@@ -62,6 +71,7 @@ public class PlayerPrefsUtil
         PlayerPrefs.SetInt(name, value ? 1 : 0);
         PlayerPrefs.Save();
     }
+
 	
 	/// <summary>
 	/// 取得整型

@@ -60,7 +60,11 @@ require "gameframe/module/AbstractView"
 require "gameframe/module/ModuleManager"
 
 
+-- Lang
+require "gameframe/lang/Lang"
 
+-- Channel
+require "gameframe/channel/ChannelManager"
 
 -- =================================
 -- gameglobal
@@ -74,7 +78,6 @@ require "gameglobal/PlayerPrefs"
 -- ---------------------------------
 -- Game
 require "gamemain/GameDefine"
-require "gamemain/core/Lang"
 require "gamemain/Game"
 
 

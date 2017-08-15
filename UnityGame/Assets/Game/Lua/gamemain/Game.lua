@@ -22,6 +22,7 @@ function Game:Install( ... )
 	Game.config 		= ConfigManager
 	Game.modules 		= ModuleManager
 	Game.menu 			= MenuManager
+	Game.channel		= ChannelManager
 
 	PlayerPrefs.SetAppPrefix(Setting.app.appPrefix)
 

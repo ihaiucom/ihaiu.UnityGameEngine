@@ -24,7 +24,7 @@ public class ShinezoneNet
 
 
 	/** 初始化 */
-	public void Init(string url, string gameId = "_self_game", string channel = "default_self")
+	public void Init(string url, bool isTcp = false, string gameId = "_self_game", string channel = "default_self")
 	{
 		// mono
 		GameObject go = new GameObject ("ShinezoneNet");
@@ -44,7 +44,7 @@ public class ShinezoneNet
 		ServerTime.Init ();
 		
 		// 初始化网络管理器模块
-		NetworkMgr.Init (netEvent.dict, false);
+		NetworkMgr.Init (netEvent.dict, isTcp);
 
 		
 		// 角色管理器
@@ -78,6 +78,12 @@ public class ShinezoneNet
 	public void OnResume()
 	{
 		NetworkMgr.OnResume ();
+	}
+
+	/** 退出 */
+	public void OnExit()
+	{
+		NetworkMgr.OnExit();
 	}
 
 }

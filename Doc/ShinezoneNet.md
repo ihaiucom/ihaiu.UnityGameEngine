@@ -1,6 +1,5 @@
 # ShinezoneNet
 Shinezone网络模块
-=======
 
 
 
@@ -31,14 +30,14 @@ Shinezone网络模块
 
 
 ## SocketNet
-### 状态
+#### * 状态
 
 | 状态名词 					| 描述 				| 设置时机												| 
 | ------------------------- | ----------------- | ----------------------------------------------------- |
-| enum_state_nil 			| 没有创建socket; 	| 默认、Disconnect (断开连接) 								| 
-| enum_state_create 		| 已经创建socket； 	| reset_connect (重新创建socket)  						| 
-| enum_state_connecting 	| 正在连接中; 			| try_connect (尝试连接，连接没报错并且发送ping成功)  			| 
-| enum_state_connected 		| 连接成功; 			| on_rand_factor (收到服务器随机因子) 						| 
+| enum_state_nil 			| 没有创建socket	 	| 默认、Disconnect (断开连接) 								| 
+| enum_state_create 		| 已经创建socket	 	| reset_connect (重新创建socket)  						| 
+| enum_state_connecting 	| 正在连接中			| try_connect (尝试连接，连接没报错并且发送ping成功)  			| 
+| enum_state_connected 		| 连接成功			| on_rand_factor (收到服务器随机因子) 						| 
 | enum_state_authing 		| 正在认证 			| on_rand_factor（收到服务器随机因子消息， 发送认证）			| 
 | enum_state_authsucceed 	| 认证成功 			| on_auth_result (收到服务器认证结果消息并且认证成功)		 	| 
 

@@ -50,7 +50,7 @@ string session = lxnet_manager.Md5Sum (_auth_obj.from_web_M + _auth_obj.now_serv
 ```
 
 
-1. req_short_link_auth; 请求进行短链接认证
+2. req_short_link_auth; 请求进行短链接认证
 ``` csharp
 string session = lxnet_manager.Md5Sum(_auth_obj.now_server_S + _auth_obj.prev_server_S + _auth_obj.first_auth_string + _auth_obj.prev_auth_string);
 

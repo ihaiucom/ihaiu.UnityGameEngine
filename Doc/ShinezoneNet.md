@@ -43,3 +43,11 @@ Shinezone网络模块
 
 
 
+#### * 创建session的地方
+1. req_first_auth; 请求进行首次认证
+``` csharp
+string session = lxnet_manager.Md5Sum (_auth_obj.from_web_M + _auth_obj.now_server_S);
+```
+
+
+

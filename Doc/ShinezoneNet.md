@@ -10,10 +10,12 @@ Shinezone网络模块
 * 创建Socket
 
 
+| 方法名					| 描述																		|
+| ---------------------	| ------------------------------------------------------------------------ 	|
 | RegisterProtocol 		| 注册消息监听																	| 
-| SendMsgToServer 		| 发送消息
+| SendMsgToServer 		| 发送消息																	|
 | Run 					| 每帧调用；每3帧调用一次Http Run；每200帧调用一次LXNetDLL Run;每帧调socket RunOnce	| 
-| Opause  				| 挂起Socket,实际没处理
+| Opause  				| 挂起Socket,实际没处理														|
 | OnResume 				| 恢复Socket; Socket创建连接后才有效，并会发送一次ping								| 
 | OnExit  				| 释放Socket 																| 
 | Reconnect  			| 重连，会重新创建Socket 														| 

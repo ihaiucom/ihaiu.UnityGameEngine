@@ -23,7 +23,7 @@ end
 -- 打开
 -- ----------------------
 function AbstractModule:Open( ... )
-	Game.menu:Open(self.menuId)
+	Game.menu:Open(self.menuId, ...)
 end
 
 
@@ -42,7 +42,7 @@ end
 function AbstractModule:Back( ... )
 	if self.backMenuId > 0 then
 		Game.menu:Close(self.menuId)
-		Game.menu:Open(self.backMenuId)
+		Game.menu:Open(self.backMenuId, ...)
 	else
 		Game.menu:Close(self.menuId)
 	end
@@ -56,3 +56,4 @@ end
 function AbstractModule:SetBackMenu(menuId)
 	self.backMenuId = menuId
 end
+

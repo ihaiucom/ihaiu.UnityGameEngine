@@ -7,10 +7,13 @@ local M = MenuCtlForPanel
 M.moduleView 	= nil
 -- 是否是预安装
 M.isPreinstall 	= false
+-- 参数
+M.args			= nil
 
 
 -- [实现抽象] 打开
 function M:Open( ... )
+	self.args	= {...}
 
 	if self.moduleView then
 		self:SetModuleViewShow()
@@ -92,11 +95,13 @@ end
 
 
 -- 设置模块视图显示
-function M:SetModuleViewShow( ... )
+function M:SetModuleViewShow(  )
 	self.moduleView.transform:SetAsLastSibling()
 	self.moduleView:Show()
 	self.state 		= MenuCtlStateType.Opened
 	self:CloseOther()
+
+	self.moduleView:MenuCallOnOpen(unpack(self.args))
 end
 
 

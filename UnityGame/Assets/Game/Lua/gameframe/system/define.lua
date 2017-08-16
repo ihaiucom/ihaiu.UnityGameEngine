@@ -54,3 +54,6 @@ object			= System.Object
 Type			= System.Type
 Guid			= System.Guid
 
+Vector2			= UnityEngine.Vector2
+Vector3			= UnityEngine.Vector3
+

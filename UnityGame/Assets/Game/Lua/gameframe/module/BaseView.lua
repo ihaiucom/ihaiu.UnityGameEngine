@@ -1,9 +1,10 @@
 BaseView = class("BaseView", 
 {
-	instance 	= nil,
-	gameObject 	= nil,
-	transform	= nil,
-	csView 		= nil,
+	instance 			= nil,
+	gameObject 			= nil,
+	transform			= nil,
+	csView 				= nil,
+	isCsharpStart		= false,
 })
 
 -- 是否销毁了 或者 没有初始化
@@ -38,9 +39,10 @@ end
 -- C#调用
 -- ----------------------------------------------
 function BaseView:CsStart( gameObject, csView  )
-	self.gameObject = gameObject
-	self.transform 	= gameObject.transform
-	self.csView 	= csView
+	self.gameObject 	= gameObject
+	self.transform 		= gameObject.transform
+	self.csView 		= csView
+	self.isCsharpStart	= true
 	self:OnStart()
 end
 

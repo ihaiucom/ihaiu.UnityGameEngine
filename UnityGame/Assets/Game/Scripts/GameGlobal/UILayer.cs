@@ -27,7 +27,7 @@ namespace Games
 			/** 加载面板 */
 			Layer_Loader = 8,
 			/** 浮动消息 */
-			Layer_FloatMsg = 9,
+			Layer_Msg = 9,
 		}
 
 
@@ -157,6 +157,22 @@ namespace Games
 			}
 		}
 
+		
+		
+		private RectTransform _msg;
+		public RectTransform msg
+		{
+			get
+			{
+				if(_msg == null)
+				{
+					GameObject go = GameObject.Find("Layer-Msg");
+					_msg = (RectTransform) go.transform;
+				}
+				return _msg;
+			}
+		}
+
 
 
 		public RectTransform GetLayer(Layer layer)
@@ -189,6 +205,9 @@ namespace Games
 
 			case Layer.Layer_Loader:
 				return loader;
+
+			case Layer.Layer_Msg:
+				return msg;
 			}
 			return null;
 		}

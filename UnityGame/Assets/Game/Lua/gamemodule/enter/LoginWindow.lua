@@ -27,20 +27,32 @@ function M:OnStart( ... )
 	self.currentPanel 	= self.loginPanel
 	self.panels 		= {self.loginPanel, self.registerPanel, self.serverPanel}
 
-	self:OpenLoginPanel()
 
 end
+
+
+-- [实现] 打开视图回调
+function M:OnOpen(tabIndex )
+	print("打开视图回调",tabIndex )
+	tabIndex = tabIndex or LoginWindow.Tab.Login
+	self:SetTab(tabIndex)
+end
+
 
 -- 切换面板
 function M:SetTab( index )
 	local panel = self.panels[index]
 
 	if self.currentPanel == panel then
-		return
+		-- return
 	end
 
 	if self.currentPanel then
 		self.currentPanel:Hide()
+	end
+
+	for i, item in ipairs(self.panels) do
+		item:Hide()
 	end
 
 	self.currentPanel = panel

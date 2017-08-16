@@ -70,15 +70,15 @@ function class(classname, super)
         cls.__cname = classname
         cls.__ctype = 2 -- lua
         cls.__index = cls
-        cls.__tostring = function( obj )
-            local str = "[" .. obj.__cname  .. "] {"
-            for k, v in pairs(obj) do
-                str = str .. tostring(k) .. " = " .. tostring(v) .. ", "
-            end
+        -- cls.__tostring = function( obj )
+            -- local str = "[" .. obj.__cname  .. "] {"
+            -- for k, v in pairs(obj) do
+            --     str = str .. tostring(k) .. " = " .. tostring(v) .. ", "
+            -- end
 
-            str = str .. "}"
-            return str
-        end
+            -- str = str .. "}"
+            -- return str
+        -- end
 
 
         function cls.New(...)

@@ -24,11 +24,17 @@ end)
 
 local TestA = {}
 function TestA:Run( begin, endv )
+
+    Game.sysmsg:StateShowText("Watting... ")
     print("============", "TestA:Run", self, begin, endv)
     for i = begin, endv do
         yield_return(CS.UnityEngine.WaitForEndOfFrame())
         print("TestA, Run", i, Time.frameCount)
     end
+
+    yield_return(CS.UnityEngine.WaitForSeconds(3))
+    Game.sysmsg:StateHide()
+
 end
 
 

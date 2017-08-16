@@ -10,13 +10,22 @@ SystemMessage = class("SystemMessage", {
 	statePrefab = nil,
 	alertPrefab = nil,
 
+	-- 浮动消息管理器
+	toastMessage = nil,
+
+	-- 状态消息
+	stateMessageView = nil,
+
 })
 
 local M = SystemMessage
 
 -- 初始化
-function M:Init(  )
-	
+function M:Install(  )
+	self:LoadPrefab()
+	self.toastMessage 		= SystemToastMessage.New(self)
+	self.stateMessageView 	= SystemStateMessageView.New(self.statePrefab)
+
 end
 
 -- 加载资源预设
@@ -27,28 +36,38 @@ function M:LoadPrefab( )
 	self.alertPrefab = AssetManager:LoadAsset(self.ASSET_PATH_ALERT)
 end
 
+-- 获取配置消息内容
+function M:GetMsgText( msgId )
+	local msgConfig = Game.config.msg:GetConfig(msgId)
+	if msgConfig then
+		return msgConfig.content
+	else
+		return string.format("没找到消息配置 msgId=%d", msgId)
+	end
+end
+
 
 -- 浮动消息
 function M:ToastText( txt )
-	
+	self.toastMessage:Play( txt )
 end
 
 function M:ToastMsg( msgId )
-	
+	self:ToastText(self:GetMsgText(msgId))
 end
 
 -- 状态消息
 function M:StateShowText( txt )
-	
+	self.stateMessageView:SetShow(txt)
 end
 
 function M:StateShowMsg( msgId )
-	
+	self:StateShowMsg(self:GetMsgText(msgId))
 end
 
 
-function M:StateHide( txt )
-	
+function M:StateHide(  )
+	self.stateMessageView:Hide()
 end
 
 

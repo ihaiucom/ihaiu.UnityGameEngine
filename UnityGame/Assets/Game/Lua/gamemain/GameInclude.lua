@@ -64,6 +64,9 @@ require "gameframe/module/ModuleManager"
 require "gameframe/lang/Lang"
 
 -- Channel
+require "gameframe/channel/ChannelId"
+require "gameframe/channel/ChannelConfigs"
+require "gameframe/channel/ChannelCtl"
 require "gameframe/channel/ChannelManager"
 
 -- =================================
@@ -96,7 +99,11 @@ require "gamemodule/Enter/ServerPanel"
 require "gamemodule/Enter/LoginWindow"
 
 
-
+-- SystemMessage
+require "gamemodule/SystemMessage/SystemStateMessageView"
+require "gamemodule/SystemMessage/SystemToastMessageView"
+require "gamemodule/SystemMessage/SystemToastMessage"
+require "gamemodule/SystemMessage/SystemMessage"
 
 -- Module
 require "gamemodule/modules/LoginModule"

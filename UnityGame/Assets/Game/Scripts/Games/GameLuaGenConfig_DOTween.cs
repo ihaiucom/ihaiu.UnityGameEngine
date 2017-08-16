@@ -102,12 +102,20 @@ public static class GameLuaGenConfig_DOTween
 		typeof(Vector3ArrayOptions),
 		typeof(VectorOptions),
 
+		
+		typeof(ShortcutExtensions46),
+		typeof(DOTweenUtils46),
+		typeof(ShortcutExtensions46),
+
+
 
 	};
 
     //C#静态调用Lua的配置（包括事件的原型），仅可以配delegate，interface
     [CSharpCallLua]
     public static List<Type> CSharpCallLua = new List<Type>() {
+		typeof(TweenCallback),
+		typeof(TweenCallback<object>),
 	};
 	
 	//黑名单

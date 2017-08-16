@@ -5,3 +5,8 @@ local M = LoginModule
 M.menuId 		= MenuId.Login
 -- 视图Class
 M.ViewClass 	= LoginWindow
+
+-- 进入选服面板
+function M:OpenServerPanel(  )
+	
+end

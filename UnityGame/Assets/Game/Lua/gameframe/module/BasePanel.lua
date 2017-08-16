@@ -1,10 +1,11 @@
 BasePanel = class("BasePanel", 
 {
-	gameObject 	= nil,
-	transform	= nil,
-	window 		= nil,
-	moduleCtl 	= nil,
-	moduleView 	= nil,
+	gameObject 		= nil,
+	transform		= nil,
+	rectTransform	= nil,
+	window 			= nil,
+	moduleCtl 		= nil,
+	moduleView 		= nil,
 })
 
 local M = BasePanel
@@ -15,7 +16,9 @@ end
 
 
 function M:SetTransform( transform )
-	self.transform = transform
+	self.transform 			= transform
+	self.rectTransform 		= transform
+	-- self.rectTransform 	=  CS.UnityEngine.RectTransform.__CastFrom(transform)
 end
 
 
@@ -47,6 +50,30 @@ end
 -- 销毁事件
 function M:OnDestory( ... )
 	
+end
+
+
+-- ==============================================
+-- 设置Layout
+-- UILayerId 			= CS.Games.UILayer.Layer
+-- layout               MenuLayout.ScreenSize 屏幕大小, MenuLayout.PositionZero 居中
+-- ----------------------------------------------
+function M:SetLayout( layer, layout )
+
+	-- UILayerId.__CastFrom(layer)
+	self.transform:SetParent(   Game.uiLayer:GetLayer( layer ), false   )
+	self.transform.localScale = CS.UnityEngine.Vector3.one
+
+	-- 屏幕大小
+	if layer == MenuLayout.ScreenSize then
+		self.transform.offsetMin = CS.UnityEngine.Vector2.zero
+		self.transform.offsetMax = CS.UnityEngine.Vector2.zero
+
+    -- 位置为0
+	else
+		self.transform.anchoredPosition = CS.UnityEngine.Vector2.zero
+
+	end	
 end
 
 
@@ -107,6 +134,14 @@ end
 function M:GetGoggle( childPath )
 	local node = self:GetNode(childPath)
 	return node:GetComponent("Goggle")
+end
+
+
+
+-- 获取CanvasGroup
+function M:GetCanvasGroup( childPath )
+	local node = self:GetNode(childPath)
+	return node:GetComponent("CanvasGroup")
 end
 
 

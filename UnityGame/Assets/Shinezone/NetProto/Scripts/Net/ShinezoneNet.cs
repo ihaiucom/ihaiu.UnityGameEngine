@@ -20,6 +20,8 @@ public class ShinezoneNet
 	/** 协议处理器 */
 	public ShinezoneProtocolProcess	protocolProcess;
 
+	/** 登录处理器 */
+	public ShinezoneLogin			loginCtl;
 
 
 
@@ -29,8 +31,8 @@ public class ShinezoneNet
 		// mono
 		GameObject go = new GameObject ("ShinezoneNet");
 		GameObject.DontDestroyOnLoad (go);
-		mono = go.AddComponent<ShinezoneNetMono>();
-		mono.net = this;
+		mono 		= go.AddComponent<ShinezoneNetMono>();
+		mono.net 	= this;
 		
 		// 网络事件
 		netEvent = new ShinezoneNetEvent ();
@@ -52,6 +54,9 @@ public class ShinezoneNet
 
 		// 账号
 		account = new ShinezoneAccount (url, gameId, channel);
+
+		// 登录处理器
+		loginCtl = new ShinezoneLogin ();
 
 		
 		//测试服务器延时，间隔1s测试一次

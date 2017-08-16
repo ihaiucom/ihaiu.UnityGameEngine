@@ -90,10 +90,10 @@ require "gamemodule/configreaders/ConfigManager"
 
 
 -- enter
-require "gamemodule/enter/LoginPanel"
-require "gamemodule/enter/RegisterPanel"
-require "gamemodule/enter/ServerPanel"
-require "gamemodule/enter/LoginWindow"
+require "gamemodule/Enter/LoginPanel"
+require "gamemodule/Enter/RegisterPanel"
+require "gamemodule/Enter/ServerPanel"
+require "gamemodule/Enter/LoginWindow"
 
 
 

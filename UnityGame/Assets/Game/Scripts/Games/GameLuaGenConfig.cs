@@ -47,6 +47,8 @@ public static class GameLuaGenConfig
                 typeof(System.Collections.Generic.List<int>),
 				typeof(Action<string>),
 				typeof(Action<string, string>),
+				typeof(Action<GameObject>),
+				typeof(Action<Transform>),
                 typeof(UnityEngine.Debug)
             };
 
@@ -60,6 +62,8 @@ public static class GameLuaGenConfig
 				typeof(Action<string, UnityEngine.Object>),
 				typeof(Action<string, System.Object>),
                 typeof(Action<double>),
+				typeof(Action<GameObject>),
+				typeof(Action<Transform>),
                 typeof(UnityEngine.Events.UnityAction),
                 typeof(System.Collections.IEnumerator)
             };

@@ -1,22 +1,30 @@
 AssetManager = class("AssetManager", {})
 
 local M = AssetManager
+M.csAsset = CS.Game.asset
+
+
 
 -- 加载配置
 function M:LoadConfig(path, tab, fun )
-	Game.csAsset:LoadConfig(path, function ( path, txt )
+	self.csAsset:LoadConfig(path, function ( path, txt )
 		fun(tab, path, txt)
 	end)
 end
 
--- 加载
+-- [回调]加载
 function M:Load( path, tab, fun )
-	Game.csAsset:Load(path, function ( path, obj )
+	self.csAsset:Load(path, function ( path, obj )
 		fun(tab, path, obj)
 	end)
 end
 
+-- [同步]加载
+function M:LoadAsset( path )
+	return self.csAsset:LoadAsset(path)
+end
+
 -- 尝试获取资源 
 function M:TryGet( path )
-	return Game.csAsset:TryGetAsset(path)
+	return self.csAsset:TryGetAsset(path)
 end

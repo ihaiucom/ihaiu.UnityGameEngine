@@ -124,6 +124,11 @@ namespace com.ihaiu
 
 		}
 
+		public UnityEngine.Object LoadAsset(string filename)
+		{
+			return LoadAsset (filename, TYPE_OBJECT);
+		}
+
 		public UnityEngine.Object LoadAsset(string filename, Type type)
 		{
 			return Resources.Load (filename, type);

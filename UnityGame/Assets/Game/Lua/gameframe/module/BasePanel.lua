@@ -131,9 +131,9 @@ function M:GetSolider( childPath )
 end
 
 -- 获取Toggle
-function M:GetGoggle( childPath )
+function M:GetToggle( childPath )
 	local node = self:GetNode(childPath)
-	return node:GetComponent("Goggle")
+	return node:GetComponent("Toggle")
 end
 
 

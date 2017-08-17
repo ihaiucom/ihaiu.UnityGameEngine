@@ -49,14 +49,24 @@ end
 -- 简体中文
 ZH_CN = class("ZH_CN",
 {
-	SETTING = "设置",
+	SETTING 					= "设置",
+	LOGIN_VerifyPassword_Error	= "密码不一致",
+	SERVER_STATE_NORMAL			= "正常",
+	SERVER_STATE_CLOSE			= "关闭",
+	SERVER_STATE_NONE			= "未知",
+	SERVER_NoSelect				= "请选中服务器",
 })
 
 
 -- 英文
 EN_US = class("EN_US",
 {
-	SETTING = "Setting",
+	SETTING 					= "Setting",
+	LOGIN_VerifyPassword_Error	= "Password inconsistency",
+	SERVER_STATE_NORMAL			= "Normal",
+	SERVER_STATE_CLOSE			= "Close",
+	SERVER_STATE_NONE			= "Unknown",
+	SERVER_NoSelect				= "please check the server",
 })
 
 

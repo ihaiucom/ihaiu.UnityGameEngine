@@ -57,3 +57,6 @@ Guid			= System.Guid
 Vector2			= UnityEngine.Vector2
 Vector3			= UnityEngine.Vector3
 
+
+
+rapidjson = require('rapidjson')

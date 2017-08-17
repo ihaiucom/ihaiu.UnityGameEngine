@@ -73,6 +73,7 @@ require "gameframe/channel/ChannelManager"
 -- gameglobal
 -- ---------------------------------
 require "gameglobal/PlayerPrefs"
+require "gameglobal/ServerListData"
 
 
 
@@ -95,6 +96,7 @@ require "gamemodule/configreaders/ConfigManager"
 -- enter
 require "gamemodule/Enter/LoginPanel"
 require "gamemodule/Enter/RegisterPanel"
+require "gamemodule/Enter/ServerItem"
 require "gamemodule/Enter/ServerPanel"
 require "gamemodule/Enter/LoginWindow"
 

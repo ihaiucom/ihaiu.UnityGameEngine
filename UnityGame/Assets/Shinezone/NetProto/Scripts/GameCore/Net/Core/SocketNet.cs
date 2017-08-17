@@ -5,12 +5,12 @@ namespace lxnet
 
 	public class SocketNet
 	{
-		const int enum_state_nil = 0;				//未创建socket
-		const int enum_state_create = 1;			//已经创建socket
-		const int enum_state_connecting = 2;		//正在连接
-		const int enum_state_connected = 3;			//连接成功
-		const int enum_state_authing = 4;			//正在认证
-		const int enum_state_authsucceed = 5;		//认证成功
+		public const int enum_state_nil = 0;				//未创建socket
+		public const int enum_state_create = 1;			//已经创建socket
+		public const int enum_state_connecting = 2;		//正在连接
+		public const int enum_state_connected = 3;			//连接成功
+		public const int enum_state_authing = 4;			//正在认证
+		public const int enum_state_authsucceed = 5;		//认证成功
 
 
 
@@ -73,7 +73,9 @@ namespace lxnet
 		/** 认证对象 */
 		private AuthObj _auth_obj = new AuthObj();
 
-
+		
+		public int State { get{ return _state;} }
+		public bool Isinit { get{ return _isinit;} }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
@@ -90,7 +92,9 @@ namespace lxnet
 		/** rpc消息表(参见NetworkMgr单例) */
 		private NetworkMgr.RpcMapObj _rpc_maping = null;
 
+
 		////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -456,7 +460,7 @@ namespace lxnet
 
 			/** 请求首次认证 */
 			Msg msg = new Msg ();
-			msg.SetMsgType(const_network.MSG_REQ_FIRST_AUTH);
+			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_FIRST_AUTH_RESULT);
 			msg.PushInt64 (_accountid);
 			msg.PushString (session);
 			msg.PushString ("phone version");
@@ -474,7 +478,7 @@ namespace lxnet
 			session = session.ToLower();
 
 			Msg msg = new Msg ();
-			msg.SetMsgType(const_network.MSG_REQ_SHORT_LINK_AUTH);
+			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_RECONNECT_ON_LOSS_AND_AUTH);
 			msg.PushInt64(_accountid);
 			msg.PushString(session);
 			SendMsg (msg);
@@ -609,11 +613,11 @@ namespace lxnet
 		private void init_msg_handler()
 		{
 			_msg_handler[1] = on_ping;
-			_msg_handler [const_network.MSG_TELL_CHANGE_GATE] = on_change_gate;
-			_msg_handler [const_network.MSG_TELL_CLIENT_RAND_FACTOR] = on_rand_factor;
-			_msg_handler [const_network.MSG_TELL_CLIENT_AUTH_RESULT] = on_auth_result;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] = on_change_gate;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_SYNC_RANDOM_FACTOR] = on_rand_factor;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] = on_auth_result;
 			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] = on_short_link_ready;
-			_msg_handler [const_network.MSG_TELL_CLIENT_INT_OTHER_LOCAL_LOGIN] = on_account_in_other_local_login;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_ACCOUNT_DUPLICATE_LOGIN] = on_account_in_other_local_login;
 		}
 	}
 

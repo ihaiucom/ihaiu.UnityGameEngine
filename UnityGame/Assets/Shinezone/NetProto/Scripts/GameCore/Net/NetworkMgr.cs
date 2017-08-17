@@ -75,6 +75,14 @@ public class NetworkMgr
 	/** 帧计数 */
 	private static int _frame_count = 0;
 
+	public static SocketNet Socketer
+	{
+		get
+		{
+			return _socket_net;
+		}
+	}
+
 
 
 	public NetworkMgr ()
@@ -371,7 +379,7 @@ public class NetworkMgr
 
 	private static void init_msg_handler()
 	{
-		_msg_handler [const_network.MSG_TELL_CLIENT_SERVER_TIME] = on_server_update_time;
+		_msg_handler [const_network.OPCODE_AUTH_S2C_SYNC_SERVER_TIME] = on_server_update_time;
 	}
 
 }

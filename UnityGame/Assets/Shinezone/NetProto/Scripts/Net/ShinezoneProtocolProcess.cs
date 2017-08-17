@@ -23,7 +23,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 
 
 		Loger.Log("hit msg, msg id:" + id + ",  msg=" + msg);
-		net.netEvent.CallHintMessage (id, msg);
+		net.netCtl.CallHintMessage (id, msg);
 	}
 
 
@@ -36,7 +36,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 		foreach (CharInfo info in char_list) {
 			net.role.AddRoleDataToRoleList(info._dbid, info._sex, info._name, info._globaldata, info._sharedata);
 		}
-		net.netEvent.CallRecvCharlist ();
+		net.netCtl.CallRecvCharlist ();
 	}
 
 
@@ -50,7 +50,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 											one_info._globaldata, one_info._sharedata);
 
 		
-		net.netEvent.CallCreateCharSucceed ();
+		net.netCtl.CallCreateCharSucceed ();
 	}
 
 
@@ -61,7 +61,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 	public void on_tell_delete_char(Int64 dbid)
 	{
 		net.role.DeleteRoleDataByID(dbid);
-		net.netEvent.CallDeleteCharSucceed (dbid);
+		net.netCtl.CallDeleteCharSucceed (dbid);
 	}
 
 
@@ -72,7 +72,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 	public void on_account_has_gameing_char_only_use_it(Int64 dbid)
 	{
 		Loger.Log("on_account_has_gameing_char_only_use_it:" + dbid);
-		net.netEvent.CallCccountHasGameingCharOnlyUseIt (dbid);
+		net.netCtl.CallCccountHasGameingCharOnlyUseIt (dbid);
 	}
 
 
@@ -82,7 +82,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 	public void on_tell_client_load_data()
 	{
 		// 此时，选择角色成功，可以先加载一部分客户端所需的资源，同时等待服务器加载角色详细信息
-		net.netEvent.CallTellClientLoadData();
+		net.netCtl.CallTellClientLoadData();
 	}
 
 
@@ -96,7 +96,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 	public void on_tell_char_data(Int64 dbid, Int64 gold, Int64 money, CharDataObj dataobj)
 	{
 		net.role.SetRoleDataByID(dbid, gold, money, dataobj);
-		net.netEvent.CallTellCcharData ();
+		net.netCtl.CallTellCcharData ();
 	}
 
 
@@ -144,7 +144,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 	{
 		ShinezoneRoleData pl = net.role.GetRoleData();
 		pl.set_gold(pl.get_gold() + add_gold);
-		net.netEvent.CallTellClientAddGold (add_gold);
+		net.netCtl.CallTellClientAddGold (add_gold);
 	}
 
 
@@ -157,7 +157,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 		ShinezoneRoleData pl = net.role.GetRoleData();
 		pl.set_gold(pl.get_gold() - dec_gold);
 		
-		net.netEvent.CallTellClientDecGold (dec_gold);
+		net.netCtl.CallTellClientDecGold (dec_gold);
 	}
 
 
@@ -170,7 +170,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 		ShinezoneRoleData pl = net.role.GetRoleData();
 		pl.set_money(pl.get_money() + add_money);
 
-		net.netEvent.CallTellClientAddMoney (add_money);
+		net.netCtl.CallTellClientAddMoney (add_money);
 	}
 
 
@@ -183,7 +183,7 @@ public class ShinezoneProtocolProcess : ProtocolInterface
 		ShinezoneRoleData pl = net.role.GetRoleData();
 		pl.set_money(pl.get_money() - dec_money);
 		
-		net.netEvent.CallTellClientDecMoney (dec_money);
+		net.netCtl.CallTellClientDecMoney (dec_money);
 	}
 
     /**

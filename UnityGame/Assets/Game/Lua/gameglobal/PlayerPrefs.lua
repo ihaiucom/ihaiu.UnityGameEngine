@@ -23,6 +23,7 @@ end
 -- Username
 function M.SetUsername( username )
 	PlayerPrefsUtil.SetString( PlayerPrefsKey.Login_Username, username, false)
+	PlayerPrefs.SetUserKey(username)
 end
 
 
@@ -38,4 +39,25 @@ end
 
 function M.GetPassword(  )
 	return PlayerPrefsUtil.GetString( PlayerPrefsKey.Login_Password, false)
+end
+
+-- Server IP
+function M.SetServerIP( ip )
+	PlayerPrefsUtil.SetString( PlayerPrefsKey.Login_ServerIP, ip)
+end
+
+
+function M.GetServerIP(  )
+	return PlayerPrefsUtil.GetString( PlayerPrefsKey.Login_ServerIP)
+end
+
+
+-- Server Port
+function M.SetServerPort( port )
+	PlayerPrefsUtil.SetInt( PlayerPrefsKey.Login_ServerPort, port)
+end
+
+
+function M.GetServerPort(  )
+	return PlayerPrefsUtil.GetInt( PlayerPrefsKey.Login_ServerPort)
 end

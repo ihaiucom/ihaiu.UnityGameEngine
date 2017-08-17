@@ -17,6 +17,16 @@ function M:Init( transform, window )
 
 end
 
+
+-- 显示
+function M:Show(  )
+	if self.gameObject then
+		self.gameObject:SetActive(true)
+	end
+	
+	self:ReadLocalData()
+end
+
 -- 销毁事件
 function M:OnDestory(  )
 	self:RemoveButtonClickEvent("Content/Button-SignUp", self.OnClickRegisterButton, self)
@@ -61,7 +71,7 @@ end
 
 -- 点击登录按钮
 function M:OnClickLoginButton(  )
-	self.window:OpenServerPanel()
+	Game.csShinezoneNet.loginCtl:Login ( self:GetUsername(), self:GetPassword() )
 	self:SaveLocalData()
 end
 

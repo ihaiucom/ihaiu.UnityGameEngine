@@ -20,6 +20,7 @@ function M:Install( )
 	self.config = ChannelConfigs:FindConfig( Setting.version.centerName )
 	self.id 	= self.config.id
 	self.ctl 	= self:CreateCtl()
+	self.ctl:Init()
 end
 
 -- 创建渠道控制器
@@ -50,35 +51,28 @@ function M:Login( )
 end
 
 -- 退出
-function M.Logout( )
+function M:Logout( )
 	self.ctl:Logout()
 end
 
--- 注册
-function M.Register(  )
-	self.ctl:Logout()
-end
 
 -- 获取账号信息
-function M.GetAccountInfo( )
+function M:GetAccountInfo( )
 	return self.ctl:GetAccountInfo()
 end
 
 -- 进入游戏
-function M.EnterGame(  )
-	self.ctl:EnterGame()
+function M:EnterGame( id, ip, port )
+	self.ctl:EnterGame( id, ip, port )
+	
 end
 
 
 -- ------------------------------------------
 
-
 -- 登录成功
-function M.OnLoginSuccess( )
-	
-end
+function M:OnLoginSuccess( )
 
--- 登录失败
-function M.OnLoginFail( )
-	
+	print("===========ChannelManager.OnLoginSuccess");
+	Game.menu:Open(MenuId.Login, LoginWindow.Tab.Server)
 end

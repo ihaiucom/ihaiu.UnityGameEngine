@@ -181,7 +181,7 @@ public class ShinezoneAccountEvent
 	private void on_enter_game_res(JSONNode result, int error_code, string error_msg)
 	{
 		Loger.Log (result["opcode"] + error_msg);
-		OnEnterGame (result, error_code, error_msg);
+		if(OnEnterGame != null) OnEnterGame (result, error_code, error_msg);
 	}
 	
 	/// 领取礼包

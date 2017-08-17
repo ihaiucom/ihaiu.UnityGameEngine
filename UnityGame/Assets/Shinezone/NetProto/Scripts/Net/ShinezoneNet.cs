@@ -15,7 +15,7 @@ public class ShinezoneNet
 	public ShinezoneRole 			role;
 
 	/** 网络事件 */
-	public ShinezoneNetEvent 		netEvent;
+	public ShinezoneNetConnect 		netCtl;
 
 	/** 协议处理器 */
 	public ShinezoneProtocolProcess	protocolProcess;
@@ -35,7 +35,7 @@ public class ShinezoneNet
 		mono.net 	= this;
 		
 		// 网络事件
-		netEvent = new ShinezoneNetEvent ();
+		netCtl = new ShinezoneNetConnect (this);
 		
 		// 初始化消息处理
 		protocolProcess = new ShinezoneProtocolProcess (this);
@@ -46,7 +46,7 @@ public class ShinezoneNet
 		ServerTime.Init ();
 		
 		// 初始化网络管理器模块
-		NetworkMgr.Init (netEvent.dict, isTcp);
+		NetworkMgr.Init (netCtl.dict, isTcp);
 
 		
 		// 角色管理器
@@ -56,7 +56,8 @@ public class ShinezoneNet
 		account = new ShinezoneAccount (url, gameId, channel);
 
 		// 登录处理器
-		loginCtl = new ShinezoneLogin ();
+		loginCtl = new ShinezoneLogin (this);
+
 
 		
 		//测试服务器延时，间隔1s测试一次
@@ -69,6 +70,7 @@ public class ShinezoneNet
 		long currenttime = lxnet_manager.GetMilliSecond ();
 		ServerTime.Run (currenttime);
 		NetworkMgr.Run (currenttime);
+		netCtl.Run ();
 //		GameStateUI.UpdateState(currenttime);
 	}
 

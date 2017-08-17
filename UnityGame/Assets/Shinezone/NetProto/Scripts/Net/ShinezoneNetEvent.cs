@@ -131,106 +131,122 @@ public class ShinezoneNetEvent
 	/// 服务器：提示一则信息 
 	public void CallHintMessage(int id, string msg)
 	{
-		onHintMessage (id, msg);
+		if(onHintMessage != null) 
+			onHintMessage (id, msg);
 	}
 	
 	/// 服务器：告知客户端角色列表
 	public void CallRecvCharlist()
 	{
-		onRecvCharlist ();
+		if(onRecvCharlist != null)
+			onRecvCharlist ();
 	}
 	
 	/// 服务器：告知客户端增加角色信息到角色列表
 	public void CallCreateCharSucceed()
 	{
-		onCreateCharSucceed();
+		if(onCreateCharSucceed != null) 
+			onCreateCharSucceed();
 	}
 	
 	/// 服务器：告知客户端移除指定的角色
 	public void CallDeleteCharSucceed(Int64 id)
 	{
-		onDeleteCharSucceed(id);
+		if(onDeleteCharSucceed != null)
+			onDeleteCharSucceed(id);
 	}
 	
 	
 	/// 服务器：告知客户端当前账号存在正在游戏的角色，目前只能使用此正在角色的游戏进行游戏
 	public void CallCccountHasGameingCharOnlyUseIt(Int64 id)
 	{
-		onCccountHasGameingCharOnlyUseIt(id);
+		if(onCccountHasGameingCharOnlyUseIt != null)
+			onCccountHasGameingCharOnlyUseIt(id);
 	}
 	
 	/// 服务器：告知客户端加载必须数据，等待服务器加载角色详细数据
 	public void CallTellClientLoadData()
 	{
-		onTellClientLoadData ();
+		if(onTellClientLoadData != null)
+			onTellClientLoadData ();
 	}
 	
 	
 	/// 服务器：告知客户端角色详细数据
 	public void CallTellCcharData()
 	{
-		onTellCcharData();
+		if(onTellCcharData != null)
+			onTellCcharData();
 	}
 	
 	
 	/// 服务器：告知客户端增加角色元宝
 	public void CallTellClientAddGold(Int64 addGold)
 	{
-		onTellClientAddGold (addGold);
+		if(onTellClientAddGold != null)
+			onTellClientAddGold (addGold);
 	}
 	
 	/// 服务器：告知客户端减少角色元宝
 	public void CallTellClientDecGold(Int64 decGold)
 	{
-		onTellClientDecGold (decGold);
+		if(onTellClientDecGold != null)
+			onTellClientDecGold (decGold);
 	}
 	
 	
 	/// 服务器：告知客户端增加角色金钱
 	public void CallTellClientAddMoney(Int64 addMoney)
 	{
-		onTellClientAddMoney(addMoney);
+		if(onTellClientAddMoney != null)
+			onTellClientAddMoney(addMoney);
 	}
 	
 	/// 服务器：告知客户端减少角色金钱
 	public void CallTellClientDecMoney(Int64 decMoney)
 	{
-		onTellClientDecMoney(decMoney);
+		if(onTellClientDecMoney != null)
+			onTellClientDecMoney(decMoney);
 	}
 
 	///////////////////////////////////////////////
 
 	/// 当正在连接服务器时
-	private void  on_connecting_to_server(object arg)
+	protected virtual void  on_connecting_to_server(object arg)
 	{
 		Loger.Log("on_connecting_to_server");
-		onConnectingToServer (arg);
+		
+		if(onConnectingToServer != null)
+			onConnectingToServer (arg);
 	}
 
 	/// 网络连接错误或服务器未开启
-	private void on_connect_error_or_server_not_open(object arg)
+	protected virtual void on_connect_error_or_server_not_open(object arg)
 	{
 		Loger.Log ("on_connect_error_or_server_not_open");
-		onConnectErrorOrServerNotOpen (arg);
+		if(onConnectErrorOrServerNotOpen != null)
+			onConnectErrorOrServerNotOpen (arg);
 	}
 
 	/// 当连接到服务器时
-	private void on_connected_to_server(object arg)
+	protected virtual void on_connected_to_server(object arg)
 	{
 		Loger.Log ("on_connected_to_server");
-		onConnectedToServer (arg);
+		if(onConnectedToServer != null)
+			onConnectedToServer (arg);
 	}
 
 	/// 正在认证时
-	private void on_authing_as_server(object arg)
+	protected virtual void on_authing_as_server(object arg)
 	{
 		bool short_link = (bool)arg;
 		Loger.Log ("on_authing_as_server, is short link:" + short_link);
-		onAuthingAsServer (short_link);
+		if(onAuthingAsServer != null)
+			onAuthingAsServer (short_link);
 	}
 
 	/// 认证成功时
-	private void on_auth_succeed(object arg)
+	protected virtual void on_auth_succeed(object arg)
 	{
 		bool short_link = (bool)arg;
 		Loger.Log ("on_auth_succeed, is short link:" + short_link);
@@ -239,62 +255,73 @@ public class ShinezoneNetEvent
 		{
 			/// 显示认证成功，此时准备进入游戏
 		}
-
-		onAuthSucceed (short_link);
+		
+		if(onAuthSucceed != null)
+			onAuthSucceed (short_link);
 	}
 
 	/// 认证失败时
-	private void on_auth_failed(object arg)
+	protected virtual void on_auth_failed(object arg)
 	{
 		Loger.Log ("on_auth_failed");
-		onAuthFailed (arg);
+		if(onAuthFailed != null)
+			onAuthFailed (arg);
 	}
 
 	/// 版本不匹配时
-	private void on_version_not_match(object arg)
+	protected virtual void on_version_not_match(object arg)
 	{
 		Loger.Log ("on_version_not_match");
-		onVersionNotMatch (arg);
+		if(onVersionNotMatch != null)
+			onVersionNotMatch (arg);
 	}
 
 	/// 系统忙，请稍后再试
-	private void on_system_busy(object arg)
+	protected virtual void on_system_busy(object arg)
 	{
 		Loger.Log ("on_system_busy");
-		onSystemBusy (arg);
+		
+		if(onSystemBusy != null)
+			onSystemBusy (arg);
 	}
 
 	/// 请重新进行web登录流程(短链接认证无法进行)
-	private void on_need_restart_do_web_auth(object arg)
+	protected virtual void on_need_restart_do_web_auth(object arg)
 	{
 		Loger.Log ("on_need_restart_do_web_auth");
-		onNeedRestartDoWebAuth (arg);
+		
+		if(onNeedRestartDoWebAuth != null)
+			onNeedRestartDoWebAuth (arg);
 
 	}
 
 	/// 渠道错误
-	private void on_channel_error(object arg)
+	protected virtual void on_channel_error(object arg)
 	{
 		Loger.Log("on_channel_error");
-		onChannelError (arg);
+		
+		if(onChannelError != null)
+			onChannelError (arg);
 	}
 
 	/// 账号在别处登录
-	private void on_account_in_other_local_login(object arg)
+	protected virtual void on_account_in_other_local_login(object arg)
 	{
 		Loger.Log ("on_account_in_other_local_login");
-		onAccountInOtherLocalLogin (arg);
+		
+		if(onAccountInOtherLocalLogin != null)
+			onAccountInOtherLocalLogin (arg);
 	}
 
 	/// 当发送RPC请求时
-	private void on_rpc_request(object arg)
+	protected virtual void on_rpc_request(object arg)
 	{
 		Loger.Log ("on_rpc_request");
 		onRpcRequest (arg);
 	}
 
 	/// 当收到rpc回应时
-	private void on_rpc_response(object arg)
+	protected virtual void on_rpc_response(object arg)
 	{
 		Loger.Log("on_rpc_response");
 		onRpcResponse (arg);

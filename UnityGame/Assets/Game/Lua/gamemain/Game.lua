@@ -15,6 +15,7 @@ function Game:Install( ... )
 	print("Game:Install")
 	Game.csMainThread	= CS.Game.mainThread
 	Game.csAsset		= CS.Game.asset
+	Game.csShinezoneNet	= CS.Game.shinezoneNet
 
 	Game.mainThread		= MainThreadManager
 	Game.asset			= AssetManager

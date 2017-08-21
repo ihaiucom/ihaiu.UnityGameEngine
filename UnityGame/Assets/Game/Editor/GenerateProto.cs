@@ -32,26 +32,103 @@ public class GenerateProto
         }
     }
 
-    public static void GenerateLua()
+	public static string dir
+	{
+		get
+		{
+			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+
+			string dir = Application.dataPath + "/../../svn/proto";
+			switch(projectName)
+			{
+			case "Game":
+				dir = Application.dataPath + "/../../../Gidea-MT-Proto";
+				break;
+			}
+
+
+			if(!Directory.Exists(dir))
+			{
+				Loger.LogErrorFormat("proto dir 目录不存在，请到GenerateProto.cs 下修改. dir={0}", dir);
+			}
+			return dir;
+		}
+	}
+
+	public static string sh
+	{
+		get
+		{
+			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+
+			#if UNITY_EDITOR_WIN
+			string file = Application.dataPath + "/../../Tools/protoc-gen-csharp/protogen_UnityGame.bat";
+			switch(projectName)
+			{
+			case "Game":
+				file = Application.dataPath + "/../../Tools/protoc-gen-csharp/protogen_UnityGame.bat";
+				break;
+			}
+
+
+			if(!File.Exists(file))
+			{
+				Loger.LogErrorFormat("GenerateProto protogenxxx.bat 目录不存在，请到GenerateProto.cs 下修改. dir={0}", file);
+				return;
+			}
+
+			#else
+			string file = Application.dataPath + "/../../Tools/protoc-gen-csharp/protogen_UnityGame.sh";
+			switch(projectName)
+			{
+			case "Game":
+				file = Application.dataPath + "/../../Tools/protoc-gen-csharp/protogen_UnityGame.sh";
+				break;
+			}
+
+
+
+			if(!File.Exists(file))
+			{
+				Loger.LogErrorFormat("GenerateProto protogenxxx.sh 目录不存在，请到GenerateProto.cs 下修改. dir={0}", file);
+			}
+			#endif
+
+
+
+			return file;
+		}
+	}
+
+
+
+
+	public static void GenerateCsharp()
 	{
 
-		string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+		#if UNITY_EDITOR_WIN
+		ProcessStartInfo info = new ProcessStartInfo();
+		info.FileName = "C:\\Windows\\System32\cmd";
+		info.Arguments = "/c " + sh ;
+		info.WindowStyle = ProcessWindowStyle.Hidden;
+		info.UseShellExecute = true;
+		info.WorkingDirectory = dir;
+		info.ErrorDialog = true;
+		Loger.Log(info.FileName + " " + info.Arguments);
 
-		string dir = Application.dataPath + "/../../svn/proto";
-		switch(projectName)
-		{
-		case "Game":
-			dir = Application.dataPath + "/../../../Gidea-MT-Proto";
-			break;
-		}
+		Process pro = Process.Start(info);
+		pro.WaitForExit();
 
+		#else
+		Loger.Log(sh);
+		Shell.RunFile (sh, false);
+		#endif
 
-		if(!Directory.Exists(dir))
-		{
-			Loger.LogErrorFormat("proto dir 目录不存在，请到GenerateProto.cs 下修改. dir={0}", dir);
-			return;
-		}
+		AssetDatabase.Refresh();
+	}
 
+    public static void GenerateLua()
+	{
 		List<string> paths = new List<string>();
 		List<string> files = new List<string>();
 

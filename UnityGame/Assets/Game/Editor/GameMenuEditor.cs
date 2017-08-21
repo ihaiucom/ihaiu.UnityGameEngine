@@ -31,6 +31,14 @@ namespace Games
 		}
 
 
+
+		[MenuItem("Game/Tool/proto -> csharp")]
+		public static void GenerateCsharpProto()
+		{
+			GenerateProto.GenerateCsharp ();
+		}
+
+
 		[MenuItem("Game/Tool/Generate ConfigManager_List.cs")]
 		public static void GenerateConfigManager()
 		{

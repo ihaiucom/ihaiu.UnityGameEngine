@@ -8,26 +8,34 @@ using System.Linq;
 
 public class GenerateConfig
 {
+	public static string sh
+	{
+		get
+		{
+			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+			string file = Application.dataPath + "/../../Tools/xlsx2csv/out_UnityGame.sh";
+			switch(projectName)
+			{
+			case "Game":
+				file = Application.dataPath + "/../../Tools/xlsx2csv/out_Game.sh";
+				break;
+			}
+
+
+
+			if(!File.Exists(file))
+			{
+				Loger.LogErrorFormat("GenerateConfig outxxx.sh 目录不存在，请到GenerateConfig.cs 下修改. dir={0}", file);
+			}
+			return file;
+		}
+	}
+
 	public static void Generate()
 	{
-		string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
-		string file = Application.dataPath + "/../../Tools/xlsx2csv/out_UnityGame.sh";
-		switch(projectName)
-		{
-		case "Game":
-			file = Application.dataPath + "/../../Tools/xlsx2csv/out_Game.sh";
-			break;
-		}
+		
 
-
-
-		if(!Directory.Exists(file))
-		{
-			Loger.LogErrorFormat("GenerateConfig outxxx.sh 目录不存在，请到GenerateConfig.cs 下修改. dir={0}", file);
-			return;
-		}
-
-		Shell.RunFile (file, false);
+		Shell.RunFile (sh, false);
 //		ProcessStartInfo start = new ProcessStartInfo("sh");
 //		start.Arguments = Application.dataPath + "/../../svn/config/out_game.sh";
 //		start.CreateNoWindow = false;

@@ -46,6 +46,12 @@ public class GenerateProto
 		}
 
 
+		if(!Directory.Exists(dir))
+		{
+			Loger.LogErrorFormat("proto dir 目录不存在，请到GenerateProto.cs 下修改. dir={0}", dir);
+			return;
+		}
+
 		List<string> paths = new List<string>();
 		List<string> files = new List<string>();
 

@@ -18,6 +18,15 @@ public class GenerateConfig
 			file = Application.dataPath + "/../../Tools/xlsx2csv/out_Game.sh";
 			break;
 		}
+
+
+
+		if(!Directory.Exists(file))
+		{
+			Loger.LogErrorFormat("GenerateConfig outxxx.sh 目录不存在，请到GenerateConfig.cs 下修改. dir={0}", file);
+			return;
+		}
+
 		Shell.RunFile (file, false);
 //		ProcessStartInfo start = new ProcessStartInfo("sh");
 //		start.Arguments = Application.dataPath + "/../../svn/config/out_game.sh";

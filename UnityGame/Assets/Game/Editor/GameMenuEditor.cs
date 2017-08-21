@@ -23,6 +23,14 @@ namespace Games
 		}
 
 
+
+		[MenuItem("Game/Tool/Generate Lua Proto")]
+		public static void GenerateLuaProto()
+		{
+			GenerateProto.GenerateLua ();
+		}
+
+
 		[MenuItem("Game/Tool/Generate ConfigManager_List.cs")]
 		public static void GenerateConfigManager()
 		{

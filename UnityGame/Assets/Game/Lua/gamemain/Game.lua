@@ -64,4 +64,9 @@ function Game:Test(  )
 
 	-- 测试协程
 	-- require "test/TestCoroutine"
+
+
+
+	-- 测试 proto
+	require "test/TestProto"
 end

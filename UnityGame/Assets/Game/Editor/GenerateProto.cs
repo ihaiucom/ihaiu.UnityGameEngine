@@ -74,7 +74,6 @@ public class GenerateProto
 			if(!File.Exists(file))
 			{
 				Loger.LogErrorFormat("GenerateProto protogenxxx.bat 目录不存在，请到GenerateProto.cs 下修改. dir={0}", file);
-				return;
 			}
 
 			#else
@@ -108,16 +107,16 @@ public class GenerateProto
 
 		#if UNITY_EDITOR_WIN
 		ProcessStartInfo info = new ProcessStartInfo();
-		info.FileName = "C:\\Windows\\System32\cmd";
+		info.FileName = "C:\\Windows\\System32\\cmd";
 		info.Arguments = "/c " + sh ;
-		info.WindowStyle = ProcessWindowStyle.Hidden;
+		info.WindowStyle = ProcessWindowStyle.Normal;
 		info.UseShellExecute = true;
 		info.WorkingDirectory = dir;
 		info.ErrorDialog = true;
 		Loger.Log(info.FileName + " " + info.Arguments);
 
 		Process pro = Process.Start(info);
-		pro.WaitForExit();
+		//pro.WaitForExit();
 
 		#else
 		Loger.Log(sh);

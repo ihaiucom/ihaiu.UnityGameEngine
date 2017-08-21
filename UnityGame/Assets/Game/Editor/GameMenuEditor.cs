@@ -24,7 +24,7 @@ namespace Games
 
 
 
-		[MenuItem("Game/Tool/Generate Lua Proto")]
+		[MenuItem("Game/Tool/proto -> lua")]
 		public static void GenerateLuaProto()
 		{
 			GenerateProto.GenerateLua ();

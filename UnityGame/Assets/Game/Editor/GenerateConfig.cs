@@ -10,7 +10,14 @@ public class GenerateConfig
 {
 	public static void Generate()
 	{
-		string file = Application.dataPath + "/../../svn/config/out_game.sh";
+		string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+		string file = Application.dataPath + "/../../Tools/xlsx2csv/out_UnityGame.sh";
+		switch(projectName)
+		{
+		case "Game":
+			file = Application.dataPath + "/../../Tools/xlsx2csv/out_Game.sh";
+			break;
+		}
 		Shell.RunFile (file, false);
 //		ProcessStartInfo start = new ProcessStartInfo("sh");
 //		start.Arguments = Application.dataPath + "/../../svn/config/out_game.sh";

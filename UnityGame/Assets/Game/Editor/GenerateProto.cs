@@ -35,7 +35,17 @@ public class GenerateProto
     public static void GenerateLua()
 	{
 
-		string dir = Application.dataPath + "/../../../Gidea-MT-Proto";
+		string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+
+		string dir = Application.dataPath + "/../../svn/proto";
+		switch(projectName)
+		{
+		case "Game":
+			dir = Application.dataPath + "/../../../Gidea-MT-Proto";
+			break;
+		}
+
+
 		List<string> paths = new List<string>();
 		List<string> files = new List<string>();
 

@@ -1,0 +1,2 @@
+@protoc -I./../LuaProtoGen/protocol ../LuaProtoGen/protocol/hall.proto -oPackets.bin 
+mono ./clientgen/protogen.exe -i:Packets.bin -o:./../../UnityGame/Assets/Game/Scripts/GameGlobal/ProtoPacket.cs -ns:Games.PB -p:detectMissing

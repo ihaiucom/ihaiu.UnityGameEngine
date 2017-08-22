@@ -77,6 +77,6 @@ S2C_AuthResult(yes)->Run
 S2C_AuthResult(no)->Disconnect->e
 
 ```
-<object data="./images/shinenet_auth.svg" width="300" height="100" 
+<object data="https://raw.githubusercontent.com/ihaiucom/ihaiu.UnityGameEngine/zf_dev/Doc/images/shinenet_auth.svg" width="300" height="100" 
 type="image/svg+xml"
 codebase="http://www.adobe.com/svg/viewer/install/" />

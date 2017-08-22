@@ -16,6 +16,7 @@ function Game:Install( ... )
 	Game.csMainThread	= CS.Game.mainThread
 	Game.csAsset		= CS.Game.asset
 	Game.csShinezoneNet	= CS.Game.shinezoneNet
+	Game.csProto		= CS.Game.proto
 
 	Game.mainThread		= MainThreadManager
 	Game.asset			= AssetManager
@@ -26,6 +27,8 @@ function Game:Install( ... )
 	Game.channel		= ChannelManager
 	Game.sysmsg			= SystemMessage
 	Game.channel 		= ChannelManager
+	Game.proto 			= NetProto
+
 
 	PlayerPrefs.SetAppPrefix(Setting.app.appPrefix)
 
@@ -34,6 +37,7 @@ function Game:Install( ... )
 	Game.modules:Install("gamemodule/modules/ModuleManager_List")
 	Game.menu:Install()
 	Game.sysmsg:Install()
+	Game.proto:Install()
 
 
 	-- 加载配置

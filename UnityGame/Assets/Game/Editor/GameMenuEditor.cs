@@ -39,6 +39,13 @@ namespace Games
 		}
 
 
+		[MenuItem("Game/Tool/Generate proto opcode")]
+		public static void GenerateProtoOpcode()
+		{
+			GenerateProtoRelevance.Generate ();
+		}
+
+
 		[MenuItem("Game/Tool/Generate ConfigManager_List.cs")]
 		public static void GenerateConfigManager()
 		{
@@ -51,6 +58,30 @@ namespace Games
 		{
 			ModuleManagerEditor.Generate();
 			AssetDatabase.Refresh();
+		}
+
+
+
+		[MenuItem("Game/Build/Copy Lua To Resources")]
+		public static void CopyLuaToResources()
+		{
+			LuaEditor.CopyLuaToResources ();
+		}
+
+
+
+		[MenuItem("Game/Build/Copy Config To Resources")]
+		public static void CopyConfigToResources()
+		{
+			LuaEditor.CopyConfigToResources ();
+		}
+
+
+
+		[MenuItem("Game/Build/Clear Resources Lua And Config")]
+		public static void ClearResourcesLuaAndConfig()
+		{
+			LuaEditor.ClearResourcesLuaAndConfig ();
 		}
 	}
 

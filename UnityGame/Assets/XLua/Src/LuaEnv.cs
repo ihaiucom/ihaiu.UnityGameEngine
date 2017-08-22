@@ -55,8 +55,12 @@ namespace XLua
         {
             if (LuaAPI.xlua_get_lib_version() != LIB_VERSION_EXPECT)
             {
-                throw new InvalidProgramException("wrong lib version expect:"
-                    + LIB_VERSION_EXPECT + " but got:" + LuaAPI.xlua_get_lib_version());
+
+//				throw new InvalidProgramException("wrong lib version expect:"
+//					+ LIB_VERSION_EXPECT + " but got:" + LuaAPI.xlua_get_lib_version());
+				
+				Loger.LogError ("wrong lib version expect:"
+					+ LIB_VERSION_EXPECT + " but got:" + LuaAPI.xlua_get_lib_version());
             }
 
 #if THREAD_SAFE || HOTFIX_ENABLE

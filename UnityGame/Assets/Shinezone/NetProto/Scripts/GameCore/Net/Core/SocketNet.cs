@@ -1,9 +1,11 @@
+using Games.PB;
+
 namespace lxnet
 {
 	using System;
 	using System.Collections.Generic;
 
-	public class SocketNet
+	public partial class SocketNet
 	{
 		public const int enum_state_nil = 0;				//未创建socket
 		public const int enum_state_create = 1;			//已经创建socket
@@ -369,7 +371,8 @@ namespace lxnet
 				if (newmsg == null)
 					break;
 
-				process_msg (newmsg.GetMsgType (), newmsg, NetworkMgr.on_process_msg);
+				ProcessMsg (newmsg);
+//				process_msg (newmsg.GetMsgType (), newmsg, NetworkMgr.on_process_msg);
 			}
 		}
 
@@ -459,13 +462,21 @@ namespace lxnet
 			string session = lxnet_manager.Md5Sum (_auth_obj.from_web_M + _auth_obj.now_server_S);
 
 			/** 请求首次认证 */
-			Msg msg = new Msg ();
-			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_FIRST_AUTH_RESULT);
-			msg.PushInt64 (_accountid);
-			msg.PushString (session);
-			msg.PushString ("phone version");
-			msg.PushString ("default_self");
-			SendMsg (msg);
+//			Msg msg = new Msg ();
+//			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_FIRST_AUTH_RESULT);
+//			msg.PushInt64 (_accountid);
+//			msg.PushString (session);
+//			msg.PushString ("phone version");
+//			msg.PushString ("default_self");
+//			SendMsg (msg);
+
+			RequestFirstAuthorization msg = new RequestFirstAuthorization();
+			msg.account_id 	= (ulong) _accountid;
+			msg.token 		= session;
+			msg.version 	= "phone version";
+			msg.channel 	= "default_self";
+
+			SendProtoMsg<RequestFirstAuthorization> (const_network.OPCODE_AUTH_C2S_FIRST_AUTH_RESULT, msg);
 
 			_is_short_link = false;
 		}
@@ -473,15 +484,20 @@ namespace lxnet
 		/** 请求进行短链接认证 */
 		private void req_short_link_auth()
 		{
-			string session = lxnet_manager.Md5Sum(_auth_obj.now_server_S + _auth_obj.prev_server_S + _auth_obj.first_auth_string + _auth_obj.prev_auth_string);
+//			string session = lxnet_manager.Md5Sum(_auth_obj.now_server_S + _auth_obj.prev_server_S + _auth_obj.first_auth_string + _auth_obj.prev_auth_string);
+//
+//			session = session.ToLower();
+//
+//			Msg msg = new Msg ();
+//			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_RECONNECT_ON_LOSS_AND_AUTH);
+//			msg.PushInt64(_accountid);
+//			msg.PushString(session);
+//			SendMsg (msg);
 
-			session = session.ToLower();
 
-			Msg msg = new Msg ();
-			msg.SetMsgType(const_network.OPCODE_AUTH_C2S_RECONNECT_ON_LOSS_AND_AUTH);
-			msg.PushInt64(_accountid);
-			msg.PushString(session);
-			SendMsg (msg);
+			RequestReconnectOnLossAndAuthorization msg = new RequestReconnectOnLossAndAuthorization();
+
+			SendProtoMsg<RequestReconnectOnLossAndAuthorization> (const_network.OPCODE_AUTH_C2S_RECONNECT_ON_LOSS_AND_AUTH, msg);
 
 			_is_short_link = true;
 		}
@@ -613,11 +629,21 @@ namespace lxnet
 		private void init_msg_handler()
 		{
 			_msg_handler[1] = on_ping;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] = on_change_gate;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_SYNC_RANDOM_FACTOR] = on_rand_factor;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] = on_auth_result;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] 					= on_change_gate;
+//			_msg_handler [const_network.OPCODE_S2C_SYNC_RANDOM_FACTOR] 									= on_rand_factor;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] 									= on_auth_result;
+//			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] 								= on_short_link_ready;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN] 	= on_account_in_other_local_login;
+
+			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] 					= OnMsg;
+			_msg_handler [const_network.OPCODE_S2C_SYNC_RANDOM_FACTOR] 									= OnMsg;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] 									= OnMsg;
+			_msg_handler [const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN] 	= OnMsg;
 			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] = on_short_link_ready;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_ACCOUNT_DUPLICATE_LOGIN] = on_account_in_other_local_login;
+
+			RegisterAuthorizationProto ();
+
+
 		}
 	}
 

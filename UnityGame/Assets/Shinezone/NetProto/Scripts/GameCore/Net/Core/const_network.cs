@@ -40,7 +40,8 @@ namespace lxnet
 //
 //		public const int OPCODE_AUTH_S2C_ACCOUNT_DUPLICATE_LOGIN = 1051;		//服务器：告知客户端此账号在别处登录
 
-		
+
+
 		/** 客户端请求: 首次登录认证 */
 		public const int OPCODE_AUTH_C2S_FIRST_AUTH_RESULT = 10000;	
 		
@@ -51,16 +52,20 @@ namespace lxnet
 		public const int OPCODE_AUTH_S2C_AUTH_RESULT = 10002;				
 		
 		/** 服务器：通知客户端重新连接新网关 */
-		public const int OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY = 10003;						
+		public const int OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY = 10003;		
+
+		/** 服务器：通知客户端账号在别处登录 */
+		public const int OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN = 10004;	
+
+
+
 		
 		/** 服务器：同步服务器时间到客户端 */
-		public const int OPCODE_AUTH_S2C_SYNC_SERVER_TIME = 10004;				
+		public const int OPCODE_S2C_SYNC_SERVER_TIMESTAMP = 15001;				
 		
 		/** 服务器：同步随机因子到客户端 */
-		public const int OPCODE_AUTH_S2C_SYNC_RANDOM_FACTOR = 10005;				
-		
-		/** 服务器：通知客户端账号在别处登录 */
-		public const int OPCODE_AUTH_S2C_ACCOUNT_DUPLICATE_LOGIN = 10006;	
+		public const int OPCODE_S2C_SYNC_RANDOM_FACTOR = 15002;				
+
 		
 		/** 服务器：告知客户端已经为短链接准备好 */
 		public const int MSG_TELL_CLIENT_SHORT_LINK_READY = 1007;	

@@ -17,6 +17,8 @@ public class ShinezoneNetEventName
 	public static string on_need_restart_do_web_auth 			= "on_need_restart_do_web_auth";
 	public static string on_channel_error 						= "on_channel_error";
 	public static string on_account_in_other_local_login 		= "on_account_in_other_local_login";
+	public static string on_disconnect 							= "on_disconnect";
+
 	public static string on_rpc_request 						= "on_rpc_request";
 	public static string on_rpc_response 						= "on_rpc_response";
 	
@@ -100,6 +102,9 @@ public class ShinezoneNetEvent
 	/// 账号在别处登录
 	public event Action<object> onAccountInOtherLocalLogin;
 
+	/// 断线
+	public event Action<object> onDisconnect;
+
 	/// 当发送RPC请求时
 	public event Action<object> onRpcRequest;
 
@@ -123,6 +128,7 @@ public class ShinezoneNetEvent
 		dict.Add (ShinezoneNetEventName.on_need_restart_do_web_auth			, on_need_restart_do_web_auth);
 		dict.Add (ShinezoneNetEventName.on_channel_error					, on_channel_error);
 		dict.Add (ShinezoneNetEventName.on_account_in_other_local_login		, on_account_in_other_local_login);
+		dict.Add (ShinezoneNetEventName.on_disconnect						, on_disconnect);
 		dict.Add (ShinezoneNetEventName.on_rpc_request						, on_rpc_request);
 		dict.Add (ShinezoneNetEventName.on_rpc_response						, on_rpc_response);
 	}
@@ -311,6 +317,17 @@ public class ShinezoneNetEvent
 		
 		if(onAccountInOtherLocalLogin != null)
 			onAccountInOtherLocalLogin (arg);
+	}
+
+
+
+	/// 断线
+	protected virtual void on_disconnect(object arg)
+	{
+		Loger.Log ("on_disconnect");
+
+		if(onDisconnect != null)
+			onDisconnect (arg);
 	}
 
 	/// 当发送RPC请求时

@@ -28,6 +28,7 @@ end
 		Action<Transform> go = luaenv.Global.Get<Action<Transform>> ("go");
 		go (transform);
 		go = null;
+
 	}
 
 	void OnComplete()

@@ -63,6 +63,9 @@ require "gameframe/module/ModuleManager"
 -- Lang
 require "gameframe/lang/Lang"
 
+-- net
+require "gameframe/net/NetProto"
+
 -- Channel
 require "gameframe/channel/ChannelId"
 require "gameframe/channel/ChannelConfigs"

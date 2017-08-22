@@ -159,6 +159,16 @@ namespace lxnet
 			_buf.WriteByte(value);
 		}
 
+
+
+		/**
+		 * 压入byte[]
+		 * */
+		public void PushBytes(byte[] value)
+		{
+			_buf.Write (value, 0, value.Length);
+		}
+
 		/**
 		 * 装入布尔类型
 		 * */

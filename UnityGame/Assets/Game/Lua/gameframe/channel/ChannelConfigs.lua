@@ -10,8 +10,8 @@ function ChannelConfig:ctor(id, name, cnname, gate )
 	self.id 		= id
 	self.name 		= name
 	self.cnname 	= cnname
-	self.gate		= gate or "http://106.14.8.84/game_operating_platform/index.php"
-	-- self.gate		=  gate or "http://172.17.71.49/game_operating_platform/index.php"
+	-- self.gate		= gate or "http://106.14.8.84/game_operating_platform/index.php"
+	self.gate		=  gate or "http://172.17.71.49/game_operating_platform/index.php"
 end
 
 

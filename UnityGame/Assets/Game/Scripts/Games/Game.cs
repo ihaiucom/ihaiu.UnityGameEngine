@@ -28,7 +28,8 @@ public class Game
 //    public static int proto;
 //    public static int audio;
 
-	public static ShinezoneNet			shinezoneNet = new ShinezoneNet();
+	public static ShinezoneNet			shinezoneNet 	= new ShinezoneNet();
+	public static ShinezoneNetProto		proto 			= new ShinezoneNetProto();
     #endregion
 
 	#region global other

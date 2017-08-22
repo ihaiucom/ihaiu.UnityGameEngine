@@ -38,6 +38,7 @@ namespace com.ihaiu
 
 
 		#region 加载Lua
+		
 		public byte[] LoadLua(ref string filename)
 		{
 			string script = null;
@@ -65,9 +66,17 @@ namespace com.ihaiu
 				script =  obj.text;
 			}
 			#else
+			filename =  filename + ".lua";
 			TextAsset obj = Resources.Load<TextAsset> (filename);
+
+			if (obj == null) 
+			{
+				filename = "Lua/" + filename;
+				obj = Resources.Load<TextAsset> (filename);
+			}
+
 			if (obj != null)
-				script =  obj.text;
+			script =  obj.text;
 			#endif
 
 			if(script != null)

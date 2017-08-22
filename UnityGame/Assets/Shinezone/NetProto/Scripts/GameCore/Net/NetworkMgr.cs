@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using lxnet;
 
-public class NetworkMgr
+public partial class NetworkMgr
 {
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -379,7 +379,7 @@ public class NetworkMgr
 
 	private static void init_msg_handler()
 	{
-		_msg_handler [const_network.OPCODE_AUTH_S2C_SYNC_SERVER_TIME] = on_server_update_time;
+//		_msg_handler [const_network.OPCODE_S2C_SYNC_SERVER_TIMESTAMP] = on_server_update_time;
 	}
 
 }

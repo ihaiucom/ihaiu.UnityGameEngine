@@ -12,7 +12,7 @@ public class GenerateConfig
 	{
 		get
 		{
-			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+			string projectName = PathUtil.GetDirectoryName(Application.dataPath);
 			string file = Application.dataPath + "/../../Tools/xlsx2csv/out_UnityGame.sh";
 			switch(projectName)
 			{

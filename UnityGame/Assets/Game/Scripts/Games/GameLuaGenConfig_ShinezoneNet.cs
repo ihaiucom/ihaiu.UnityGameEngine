@@ -27,6 +27,7 @@ public static class GameLuaGenConfig_ShinezoneNet
 		typeof(ShinezoneLogin),
 		typeof(ShinezoneNetConnect),
 		typeof(SimpleJSON.JSONNode),
+		typeof(ShinezoneNetProtoLua),
 
 
 
@@ -38,6 +39,8 @@ public static class GameLuaGenConfig_ShinezoneNet
     [CSharpCallLua]
     public static List<Type> CSharpCallLua = new List<Type>() {
 		typeof(Action<SimpleJSON.JSONNode>),
+		typeof(Action<int, byte[]>),
+		typeof(Action<Int32, Byte[]>),
 	};
 	
 	//黑名单

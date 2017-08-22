@@ -1,4 +1,70 @@
 
+´
+authorization.proto"`
+RequestFirstAuthorization
+
+account_id (
+token (	
+version (	
+channel (	"(
+&RequestReconnectOnLossAndAuthorization"Q
+ ResponseLoginAuthorizationResult
+
+error_code (
+authorization_str (	";
+NotifyClientConnectToNewGateway
+
+ip (	
+port ("(
+SyncServerTimestamp
+	timestamp (")
+SyncRandomFactor
+random_factor (	"#
+!NotifyClientAccountDuplicateLogin
+æ
+character.proto"˜
+CharacterInfo
+
+account_id (
+char_id (
+name (	
+level (
+exp (
+non_bind_gold (
+	bind_gold (
+non_bind_diamond (
+bind_diamond	 (
+physical_strength
+ (
+fight_point (
+flags ("1
+SyncCharacterInfo
+info (2.CharacterInfo
+Œ
+
+hero.proto"ê
+HeroInfo
+
+id (
+hero_id (
+char_id (
+model_id (
+
+fashion_id (
+level (
+exp (	
+x (	
+y	 ("(
+HeroList
+	hero_list (2	.HeroInfo"*
+RequestSelectInitializedHero
+
+id ("3
+ResponseSelectInitializedHero
+
+error_code (""
+AddHero
+info (2	.HeroInfo
 A
 person.proto"1
 Person

@@ -36,7 +36,7 @@ public class GenerateProto
 	{
 		get
 		{
-			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+			string projectName = PathUtil.GetDirectoryName(Application.dataPath);
 
 			string dir = Application.dataPath + "/../../svn/proto";
 			switch(projectName)
@@ -59,7 +59,7 @@ public class GenerateProto
 	{
 		get
 		{
-			string projectName = Path.GetDirectoryName(Application.dataPath + "/../");
+			string projectName = PathUtil.GetDirectoryName(Application.dataPath);
 
 			#if UNITY_EDITOR_WIN
 			string file = Application.dataPath + "/../../Tools/protoc-gen-csharp/protogen_UnityGame.bat";

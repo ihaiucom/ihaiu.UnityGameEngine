@@ -56,4 +56,25 @@ string session = lxnet_manager.Md5Sum(_auth_obj.now_server_S + _auth_obj.prev_se
 
 ```
 
+### * 验证流程
+
+```flow
+st=>start: Start:>http://blog.ihaiu.com
+SetAuthInfo=>operation: SetAuthInfo(accountId, session)设置账号信息
+Connect=>operation: Connect(ip, prot)连接服务器,设置状态为Create
+S2C_RandFactor=>condition: S2C 随机因子，并设置状态为Connected
+C2S_FirstAuth=>operation: C2S 第一次验证
+C2S_ReAuth=>operation: C2S 断线重连验证
+S2C_AuthResult=>operation: S2C 验证结果
+Disconnect=>operation: 断开连接
+e=>end
+
+st->SetAuthInfo->Connect->S2C_RandFactor->
+S2C_RandFactor("不需要断线重连")->C2S_FirstAuth->S2C_AuthResult
+S2C_RandFactor("需要断线重连")->C2S_ReAuth->S2C_AuthResult
+S2C_AuthResult("成功")->e
+S2C_AuthResult("失败")->Disconnect->e
+
+```
+
 

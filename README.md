@@ -104,8 +104,9 @@ Unity游戏框架
 
 ## 美术要关心的目录
 
- Assets/GameArt               		---- 游戏美术资源存放目录, 生成过程中的材料		(不会动态加载的资源)
- Assets/Game/MResources             ---- 动态加载资源目录, 成品 					(将会打包AssetBundle)
+* Assets/GameArt               		---- 游戏美术资源存放目录, 生成过程中的材料		(不会动态加载的资源)
+
+* Assets/Game/MResources             ---- 动态加载资源目录, 成品 					(将会打包AssetBundle)
 
 
 
@@ -113,10 +114,15 @@ Unity游戏框架
 
 ## 策划要关系的目录
 
- Assets/Game/Config  					---- 配置目录
- Assets/Game/MResources/ImageSprites	---- 图标目录
- Assets/Game/MResources/Sounds			---- 声音目录
- Assets/Game/MResources/PrefabFx		---- 特效目录
- Assets/Game/MResources/PrefabUnit		---- 单位目录
- Assets/Game/MResources/SceneMap		---- 关卡地图场景目录
+*  Assets/Game/Config  					---- 配置目录
+
+*  Assets/Game/MResources/ImageSprites	---- 图标目录
+
+*  Assets/Game/MResources/Sounds			---- 声音目录
+
+*  Assets/Game/MResources/PrefabFx		---- 特效目录
+
+*  Assets/Game/MResources/PrefabUnit		---- 单位目录
+
+*  Assets/Game/MResources/SceneMap		---- 关卡地图场景目录
 

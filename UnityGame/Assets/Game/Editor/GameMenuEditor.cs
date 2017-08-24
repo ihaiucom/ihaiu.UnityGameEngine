@@ -17,9 +17,16 @@ namespace Games
 
 
 		[MenuItem("Game/Tool/xlsx -> csv")]
-		public static void GenerateCSV()
+		public static void GenerateConfigXlsx2Csv()
 		{
-			GenerateConfig.Generate();
+			GenerateConfigCsv.Generate();
+		}
+
+
+		[MenuItem("Game/Tool/xlsx -> lua")]
+		public static void GenerateConfigXlsx2Lua()
+		{
+			GenerateConfigLua.Generate();
 		}
 
 

@@ -25,7 +25,14 @@ public class ProjectSettings
 		{
 			get 
 			{
-				return "";
+				string dir = Application.dataPath + "/../../svn/config";
+				switch (ProjectName)
+				{
+				case "Game":
+					dir = Application.dataPath + "/../../../gamemt_doc/config";
+					break;
+				}
+				return dir;
 			}
 		}
 
@@ -60,6 +67,27 @@ public class ProjectSettings
 			get 
 			{
 				return Tools + "/proto-gen-opcode";
+			}
+		}
+
+
+
+		/** 工具--xlsx2lua目录 */
+		public static string Tools_xlsx2lua
+		{
+			get 
+			{
+				return Tools + "/xlsx2lua";
+			}
+		}
+
+
+		/** 工具--xlsx2lua/Config目录 */
+		public static string Tools_xlsx2lua_Config
+		{
+			get 
+			{
+				return Tools_xlsx2lua + "/Config";
 			}
 		}
 
@@ -202,12 +230,43 @@ public class ProjectSettings
 				return  Application.dataPath + "/Plugins/Libs/Proto/ProtoS_List.cs";
 			}
 		}
+	}
 
+
+
+	/** 配置相关文件 */
+	public class Config2LuaFile
+	{
+
+		/** Tools/xlsx2lua/out_XXX.sh */
+		public static string Tools_xlsx2csv_sh
+		{
+			get 
+			{
+				string file = Root.Tools_xlsx2lua + "/out_UnityGame.sh";
+				switch (ProjectName)
+				{
+				case "Game":
+					file = Root.Tools_xlsx2lua + "/out_Game.sh";
+					break;
+				}
+				return file;
+			}
+		}
+
+
+		/** Tools/xlsx2lua/rm_tmp.sh */
+		public static string Tools_rmtmp_sh
+		{
+			get 
+			{
+				return Root.Tools_xlsx2lua + "/rm_tmp.sh";
+			}
+		}
 
 
 
 
 	}
-
 
 }

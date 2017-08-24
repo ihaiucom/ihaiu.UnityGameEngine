@@ -6,7 +6,7 @@ using com.ihaiu;
 using System.IO;
 using System.Linq;
 
-public class GenerateConfig
+public class GenerateConfigCsv
 {
 	public static string sh
 	{

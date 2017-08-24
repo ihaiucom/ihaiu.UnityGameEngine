@@ -73,6 +73,12 @@ require "gameframe/channel/ChannelCtl"
 require "gameframe/channel/ChannelManager"
 
 -- =================================
+-- gen
+-- ---------------------------------
+
+require "gen/proto/ProtoInclude"
+
+-- =================================
 -- gameglobal
 -- ---------------------------------
 require "gameglobal/PlayerPrefs"
@@ -94,6 +100,9 @@ require "gamemain/Game"
 
 -- Config
 require "gamemodule/configreaders/ConfigManager"
+
+-- proto
+require "gamemodule/moduleprotos/ModuleProtoManager"
 
 
 -- enter

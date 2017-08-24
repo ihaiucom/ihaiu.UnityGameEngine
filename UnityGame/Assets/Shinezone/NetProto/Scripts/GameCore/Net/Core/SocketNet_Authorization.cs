@@ -12,31 +12,33 @@ namespace lxnet
 		/** 注册登录验证协议监听 */
 		private void RegisterAuthorizationProto()
 		{
-
+			
 			/** 服务器：响应客户端登录验证结果 */
-			AddCallback<ResponseLoginAuthorizationResult> (const_network.OPCODE_AUTH_S2C_AUTH_RESULT, OnResponseLoginAuthorizationResult);
+			Game.proto.AddCallback<S_FirstAuthorization_10002> (OnResponseLoginAuthorizationResult);
 
 
 			/** 服务器：通知客户端重新连接新网关 */
-			AddCallback<NotifyClientConnectToNewGateway> (const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY, OnNotifyClientConnectToNewGateway);
+			Game.proto.AddCallback<S_ConnectToNewGateway_10003> (OnNotifyClientConnectToNewGateway);
 
 
 			/** 服务器：通知客户端账号在别处登录 */
-			AddCallback<NotifyClientAccountDuplicateLogin> (const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN, OnNotifyClientAccountDuplicateLogin);
+			Game.proto.AddCallback<S_AccountDuplicateLogin_10004> (OnNotifyClientAccountDuplicateLogin);
 
 
 			/** 服务器：同步随机因子到客户端 */
-			AddCallback<SyncRandomFactor> (const_network.OPCODE_S2C_SYNC_RANDOM_FACTOR, OnSyncRandomFactor);
+			Game.proto.AddCallback<S_SyncRandomFactor_15002> (OnSyncRandomFactor);
 
 			/** 服务器：同步服务器时间到客户端 */
-			AddCallback<SyncServerTimestamp> (const_network.OPCODE_S2C_SYNC_SERVER_TIMESTAMP, OnSyncServerTimestamp);
+			Game.proto.AddCallback<S_SyncServerTimestamp_15001> (OnSyncServerTimestamp);
 		}
 
 
 
 		/** 服务器：响应客户端登录验证结果 */
-		private void OnResponseLoginAuthorizationResult(int id, ResponseLoginAuthorizationResult msg)
+		private void OnResponseLoginAuthorizationResult(int id, S_FirstAuthorization_10002 msg)
 		{
+			Loger.LogTag ("SocketNet", "<= 登录验证结果 error_code=" + msg.error_code );
+
 			uint res = msg.error_code;
 			if (res == const_network.enum_auth_succeed)
 			{
@@ -94,7 +96,7 @@ namespace lxnet
 
 
 		/** 服务器：通知客户端重新连接新网关 */
-		private void OnNotifyClientConnectToNewGateway(int id, NotifyClientConnectToNewGateway msg)
+		private void OnNotifyClientConnectToNewGateway(int id, S_ConnectToNewGateway_10003 msg)
 		{
 			_ip 	= msg.ip;
 			_port 	= (int) msg.port;
@@ -105,7 +107,7 @@ namespace lxnet
 
 
 		/** 服务器：通知客户端账号在别处登录 */
-		private void OnNotifyClientAccountDuplicateLogin(int id, NotifyClientAccountDuplicateLogin msg)
+		private void OnNotifyClientAccountDuplicateLogin(int id, S_AccountDuplicateLogin_10004 msg)
 		{
 			close_connect();
 			_funclist["on_account_in_other_local_login"](null);
@@ -113,7 +115,7 @@ namespace lxnet
 
 
 		/** 服务器：同步随机因子到客户端 */
-		private void OnSyncRandomFactor(int id, SyncRandomFactor msg)
+		private void OnSyncRandomFactor(int id, S_SyncRandomFactor_15002 msg)
 		{
 
 			/** 变更状态为连接上 */
@@ -145,7 +147,7 @@ namespace lxnet
 
 
 		/** 服务器：同步服务器时间到客户端 */
-		private void OnSyncServerTimestamp(SyncServerTimestamp msg)
+		private void OnSyncServerTimestamp(S_SyncServerTimestamp_15001 msg)
 		{
 			ServerTime.UpdateServerTime ((Int64)msg.timestamp);
 		}

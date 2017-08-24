@@ -3,14 +3,23 @@ using System.Collections;
 using lxnet;
 using MessageProtocol;
 using System;
+using System.IO;
 
 public class ShinezoneNetProto
 {
-
 	/** 发送消息 */
-	public void SendProtoMsg<T>(int id, T protoMsg)
+	public void SendProtoMsg<T>(T protoMsg)
 	{
-		NetworkMgr.Socketer.SendProtoMsg<T> (id, protoMsg);
+		Type type = typeof(T);
+		IProtoItem item = ProtoC.GetItemByType (type);
+
+		MemoryStream stream = new MemoryStream ();
+		ProtoBuf.Serializer.Serialize<T> (stream, protoMsg);
+		stream.Position = 0;
+
+		NetworkMgr.Socketer.SendBytesMsg (item.opcode, stream.ToArray());
+
+		stream.Dispose ();
 	}
 
 	public void SendEmptyMsg(int id)
@@ -19,25 +28,33 @@ public class ShinezoneNetProto
 	}
 
 	/** 添加监听 */
-	public void AddCallback<T>(int id, Action<int, T> callback)
+	public void AddCallback<T>(Action<int, T> callback)
 	{
-		NetworkMgr.Socketer.AddCallback<T> (id, callback);
+		Type type = typeof(T);
+		ProtoItem<T> item = (ProtoItem<T>) ProtoS.GetItemByType (type);
+		item.OnReceiveTwo += callback;
 	}
 
-	public void AddCallback<T>(int id, Action<T> callback)
+	public void AddCallback<T>(Action<T> callback)
 	{
-		NetworkMgr.Socketer.AddCallback<T> (id, callback);
+		Type type = typeof(T);
+		ProtoItem<T> item = (ProtoItem<T>) ProtoS.GetItemByType (type);
+		item.OnReceiveOnce += callback;
 	}
 
 	/** 移除监听 */
-	public void RemoveCallback<T>(int id, Action<int, T> callback)
+	public void RemoveCallback<T>(Action<int, T> callback)
 	{
-		NetworkMgr.Socketer.RemoveCallback<T> (id, callback);
+		Type type = typeof(T);
+		ProtoItem<T> item = (ProtoItem<T>) ProtoS.GetItemByType (type);
+		item.OnReceiveTwo -= callback;
 	}
 
-	public void RemoveCallback<T>(int id, Action<T> callback)
+	public void RemoveCallback<T>(Action<T> callback)
 	{
-		NetworkMgr.Socketer.RemoveCallback<T> (id, callback);
+		Type type = typeof(T);
+		ProtoItem<T> item = (ProtoItem<T>) ProtoS.GetItemByType (type);
+		item.OnReceiveOnce -= callback;
 	}
 
 }

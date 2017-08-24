@@ -27,7 +27,7 @@ end
 function M:Close(  )
 
 	if self.moduleView then
-		self:SetModuleViewShow()
+		self.moduleView:Hide()
 	end
 
 	self.state 		= MenuCtlStateType.Closed

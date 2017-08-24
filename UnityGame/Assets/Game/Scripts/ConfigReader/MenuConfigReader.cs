@@ -4,7 +4,7 @@ using com.ihaiu;
 
 namespace Games
 {
-	[ConfigCsv("Config/menu", false)]
+	[ConfigCsv("Config/Client/Menu", true, false)]
 	public class MenuConfigReader : ConfigReader<MenuConfig>
 	{
 		public override void ParseCsv (string[] csv)

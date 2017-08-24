@@ -1,46 +1,47 @@
 
-´
-authorization.proto"`
-RequestFirstAuthorization
+∑
+authorization.proto"b
+CMSG_FirstAuthorization_Req
 
 account_id (
 token (	
 version (	
-channel (	"(
-&RequestReconnectOnLossAndAuthorization"Q
- ResponseLoginAuthorizationResult
+channel (	"M
+SMSG_FirstAuthorization_Resp
 
 error_code (
-authorization_str (	";
-NotifyClientConnectToNewGateway
+authorization_str (	"*
+(CMSG_ReconnectOnLossandAuthorization_Req"8
+SMSG_ConnectToNewGateway_Ntf
 
 ip (	
-port ("(
-SyncServerTimestamp
-	timestamp (")
-SyncRandomFactor
-random_factor (	"#
-!NotifyClientAccountDuplicateLogin
-æ
-character.proto"˜
+port ("1
+SMSG_SyncServerTimestamp_Ntf
+	timestamp ("2
+SMSG_SyncRandomFactor_Ntf
+random_factor (	" 
+SMSG_AccountDuplicateLogin_Ntf
+‘
+character.proto"â
 CharacterInfo
 
 account_id (
 char_id (
-name (	
-level (
-exp (
-non_bind_gold (
-	bind_gold (
-non_bind_diamond (
-bind_diamond	 (
-physical_strength
- (
-fight_point (
-flags ("1
-SyncCharacterInfo
+name (	
+portrait (
+level (
+exp (
+non_bind_gold (
+	bind_gold (
+non_bind_diamond	 (
+bind_diamond
+ (
+physical_strength (
+fight_point (
+flags ("5
+SMSG_SyncRoleInfo_Ntf
 info (2.CharacterInfo
-Œ
+Ë
 
 hero.proto"ê
 HeroInfo
@@ -54,21 +55,14 @@ fashion_id (
 level (
 exp (	
 x (	
-y	 ("(
-HeroList
-	hero_list (2	.HeroInfo"*
-RequestSelectInitializedHero
+y	 ("5
+SMSG_SyncHeroList_Ntf
+	hero_list (2	.HeroInfo",
+CMSG_SelectInitializedHero_Req
 
-id ("3
-ResponseSelectInitializedHero
+id ("5
+SMSG_SelectInitializedHero_Resp
 
-error_code (""
-AddHero
+error_code ("+
+SMSG_AddHero_Ntf
 info (2	.HeroInfo
-A
-person.proto"1
-Person
-
-id (
-name (	
-email (	

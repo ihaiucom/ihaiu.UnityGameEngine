@@ -1,0 +1,6 @@
+int;string;int;int;string
+装备id;英雄名称;图标ID;模型ID;描述文字
+equip_id;name;icon_id;model_id;tip
+2001;武器;1;1;这是一件装备
+2002;护甲;2;2;这是一件装备
+2003;头盔;3;3;这是一件装备

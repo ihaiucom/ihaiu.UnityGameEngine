@@ -39,12 +39,12 @@ end
 
 
 -- 添加监听
-function M:Add(tab, fun )
+function M:Add(tab, fun, argsTab )
 	if self:Concat(tab, fun) then
 		return
 	end
 
-	table.insert(self.list, {tab = tab, fun = fun})
+	table.insert(self.list, {tab = tab, fun = fun, argsTab = argsTab})
 end
 
 -- 移除监听
@@ -64,6 +64,10 @@ end
 -- 调
 function M:Call( ... )
 	for i, item in ipairs(self.list) do
-		item.fun(item.tab, ...)
+		if item.argsTab then
+			item.fun(item.tab, item.argsTab, ...)
+		else
+			item.fun(item.tab, ...)
+		end
 	end
 end

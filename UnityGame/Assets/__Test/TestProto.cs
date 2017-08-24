@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 
+
 public class TestProto : MonoBehaviour {
 
 	// Use this for initialization
@@ -20,6 +21,7 @@ public class TestProto : MonoBehaviour {
 //
 //		Debug.Log(person.email);
 //		Debug.Log(person.name);
+
 	}
 	
 	// Update is called once per frame

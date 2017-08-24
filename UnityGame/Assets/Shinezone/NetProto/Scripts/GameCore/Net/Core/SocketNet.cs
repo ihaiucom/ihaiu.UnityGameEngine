@@ -200,6 +200,7 @@ namespace lxnet
 		 * */
 		public void SendMsg(Msg msg)
 		{
+			Loger.LogTag ("SocketNet", "-> " + msg.GetMsgType());
 			int msgtype = msg.GetMsgType();
 
 			/* 若新的消息为RPC请求
@@ -470,13 +471,13 @@ namespace lxnet
 //			msg.PushString ("default_self");
 //			SendMsg (msg);
 
-			RequestFirstAuthorization msg = new RequestFirstAuthorization();
+			C_FirstAuthorization_10000 msg = new C_FirstAuthorization_10000();
 			msg.account_id 	= (ulong) _accountid;
 			msg.token 		= session;
 			msg.version 	= "phone version";
 			msg.channel 	= "default_self";
 
-			SendProtoMsg<RequestFirstAuthorization> (const_network.OPCODE_AUTH_C2S_FIRST_AUTH_RESULT, msg);
+			Game.proto.SendProtoMsg<C_FirstAuthorization_10000> (msg);
 
 			_is_short_link = false;
 		}
@@ -495,9 +496,9 @@ namespace lxnet
 //			SendMsg (msg);
 
 
-			RequestReconnectOnLossAndAuthorization msg = new RequestReconnectOnLossAndAuthorization();
+			C_ReconnectOnLossandAuthorization_10001 msg = new C_ReconnectOnLossandAuthorization_10001();
 
-			SendProtoMsg<RequestReconnectOnLossAndAuthorization> (const_network.OPCODE_AUTH_C2S_RECONNECT_ON_LOSS_AND_AUTH, msg);
+			Game.proto.SendProtoMsg<C_ReconnectOnLossandAuthorization_10001> (msg);
 
 			_is_short_link = true;
 		}
@@ -635,11 +636,11 @@ namespace lxnet
 //			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] 								= on_short_link_ready;
 //			_msg_handler [const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN] 	= on_account_in_other_local_login;
 
-			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] 					= OnMsg;
-			_msg_handler [const_network.OPCODE_S2C_SYNC_RANDOM_FACTOR] 									= OnMsg;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] 									= OnMsg;
-			_msg_handler [const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN] 	= OnMsg;
-			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] = on_short_link_ready;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_CLIENT_CONNECT_TO_NEW_GATEWAY] 					= OnMsg;
+//			_msg_handler [const_network.OPCODE_S2C_SYNC_RANDOM_FACTOR] 									= OnMsg;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_AUTH_RESULT] 									= OnMsg;
+//			_msg_handler [const_network.OPCODE_AUTH_S2C_CENTER_NOTIFY_CLIENT_ACCOUNT_DUPLICATE_LOGIN] 	= OnMsg;
+//			_msg_handler [const_network.MSG_TELL_CLIENT_SHORT_LINK_READY] = on_short_link_ready;
 
 			RegisterAuthorizationProto ();
 

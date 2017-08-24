@@ -28,6 +28,7 @@ function Game:Install( ... )
 	Game.sysmsg			= SystemMessage
 	Game.channel 		= ChannelManager
 	Game.proto 			= NetProto
+	Game.moduleProto	= ModuleProtoManager
 
 
 	PlayerPrefs.SetAppPrefix(Setting.app.appPrefix)
@@ -38,6 +39,7 @@ function Game:Install( ... )
 	Game.menu:Install()
 	Game.sysmsg:Install()
 	Game.proto:Install()
+	Game.moduleProto:Install()
 
 
 	-- 加载配置
@@ -72,5 +74,5 @@ function Game:Test(  )
 
 
 	-- 测试 proto
-	require "test/TestProto"
+	-- require "test/TestProto"
 end

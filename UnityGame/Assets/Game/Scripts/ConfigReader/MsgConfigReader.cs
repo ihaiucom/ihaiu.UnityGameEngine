@@ -5,7 +5,7 @@ using com.ihaiu;
 namespace Games
 {
 	[Sort(-1)]
-	[ConfigCsv("Config/msg", false)]
+	[ConfigCsv("Config/Client/Msg", true , false)]
 	public class MsgConfigReader : ConfigReader<MsgConfig>
 	{
 		public override void ParseCsv (string[] csv)

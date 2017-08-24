@@ -1,0 +1,13 @@
+int;string;string;string;string;string;string
+ID;常量名称;字段名称;英文名称;中文名称;图标;描述
+id;const;field;enName;cnName;icon;note
+1;Exp;exp;exp;经验;ImageSprites/Icon/icon_prop_exp;经验值可以从冒险、成就等行为中获得。
+2;Level;level;level;等级;ImageSprites/Icon/icon_prop_level;达到特定经验节点会提升等级，并带来战斗属性的提升，和其他收益（如天赋点）
+3;Hp;hp;hp;生命值;ImageSprites/Icon/icon_prop_hp;受到伤害时扣减生命值，当生命值为0时，人物就会死亡
+4;PhysicalAttack;physical_attack;physical_attack;物理攻击;ImageSprites/Icon/icon_prop_physical_attack;造成的物理伤害的基准值（结算减伤前）
+5;MagicAttack;magic_attack;magic_attack;魔法攻击;ImageSprites/Icon/icon_prop_magic_attack;造成的魔法伤害的基准值（结算减伤前）
+6;PhysicalDefence;physical_defence;physical_defence;物理防御;ImageSprites/Icon/icon_prop_physical_defence;人物减免物理攻击伤害的能力（减伤公式待定）
+7;MagicDefence;magic_defence;magic_defence;魔法防御;ImageSprites/Icon/icon_prop_magic_defence;人物减免魔法攻击伤害的能力（减伤公式待定）
+8;AttackDist;attack_dist;attack_dist;射程;ImageSprites/Icon/icon_prop_attack_dist;人物的最大有效攻击距离
+9;AttackSpeed;attack_speed;attack_speed;攻速;ImageSprites/Icon/icon_prop_attack_speed;每秒攻击次数
+10;MovementSpeed;movement_speed;movement_speed;移动速度;ImageSprites/Icon/icon_prop_movement_speed;每秒移动距离

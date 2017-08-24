@@ -1,0 +1,7 @@
+int;string;string;bool
+id;名称;路径;打开加载面前是否转圈圈
+id;name;path;isShowCircle
+0;没视图;;0
+1;转圈;PrefabUI/GameSystem/GameCirclePanel;0
+2;进入游戏;PrefabUI/GameSystem/GameCirclePanel;1
+3;加载战斗;PrefabUI/GameSystem/GameCirclePanel;1

@@ -21,7 +21,7 @@ public class GenerateConfig
 				break;
 			}
 
-
+			Loger.Log (file);
 
 			if(!File.Exists(file))
 			{

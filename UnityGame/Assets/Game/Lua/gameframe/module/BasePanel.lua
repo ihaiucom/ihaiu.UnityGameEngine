@@ -161,7 +161,7 @@ end
 
 
 -- 添加按钮点击事件
-function M:AddButtonClickEvent( childPath, fun, tab, tran )
+function M:AddButtonClickEvent( childPath, fun, tab, tran, argsTab )
 	if tab == nil then
 		tab = self
 	end
@@ -185,7 +185,7 @@ function M:AddButtonClickEvent( childPath, fun, tab, tran )
 		node:GetComponent("Button").onClick:AddListener(event.onClick)
 	end
 
-	event:Add(tab, fun)
+	event:Add(tab, fun, argsTab)
 end
 
 -- 移除按钮点击事件

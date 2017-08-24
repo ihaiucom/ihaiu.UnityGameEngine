@@ -73,6 +73,7 @@ public class Game
 	
 	public static void InitLuaEnv()
 	{
+
 		luaEnv = new LuaEnv ();
 		luaEnv.AddLoader (Game.asset.LoadLua);
 		luaEnv.DoString ("require 'gamemain.GameLaunch' ");
@@ -88,6 +89,10 @@ public class Game
 		Game.config 		= new ConfigManager();
 		Game.menu			= new MenuManager();
 		Game.module			= new ModuleManager();
+
+
+		ProtoC.Install ();
+		ProtoS.Install ();
 
 		yield return 0;
     }

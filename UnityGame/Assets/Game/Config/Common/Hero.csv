@@ -1,0 +1,6 @@
+int;string;int;int;string;int;int;int;int;int;int
+英雄id;英雄名称;职业;模型ID;描述文字;技能1;技能2;技能3;技能4;技能5;技能6
+hero_id;name;professional;model_id;tip;skill_1;skill_2;skill_3;skill_4;skill_5;skill_6
+1001;后裔;1;1;这是一个英雄;1001;1002;1003;1004;1005;1006
+1002;女娲;2;2;这是一个英雄;1001;1002;1003;1004;1005;1006
+1003;夸父;3;3;这是一个英雄;1001;1002;1003;1004;1005;1006

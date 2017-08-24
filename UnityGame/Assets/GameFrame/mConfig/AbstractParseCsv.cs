@@ -5,12 +5,38 @@ using System.Collections.Generic;
 namespace com.ihaiu
 {
     public abstract class AbstractParseCsv : IParseCsv
-    {
-        public Dictionary<string, int>      headKeyEns      = new Dictionary<string, int>();
-        public Dictionary<int, int>         headPropIds     = new Dictionary<int, int>();
+	{
+		public Dictionary<int, string>      	headTypes      	= new Dictionary<int, string>();
+		public Dictionary<string, int>      	headKeyEns      = new Dictionary<string, int>();
+		public Dictionary<int, string>      	headKeyCns      = new Dictionary<int, string>();
+        public Dictionary<int, int>         	headPropIds     = new Dictionary<int, int>();
+
+		virtual public void ParseHeadTypes(string[] csv)
+		{
+			string key;
+			for(int i = 0; i < csv.Length; i ++)
+			{
+				key = csv[i];
+				if (!string.IsNullOrEmpty(key))
+				{
+					key = key.Trim();
+					headTypes.Add(i, key);
+				}
+			}
+		}
 
         virtual public void ParseHeadKeyCN(string[] csv)
         {
+			string key;
+			for(int i = 0; i < csv.Length; i ++)
+			{
+				key = csv[i];
+				if (!string.IsNullOrEmpty(key))
+				{
+					key = key.Trim();
+					headKeyCns.Add(i, key);
+				}
+			}
         }
 
         virtual public void ParseHeadKeyEN(string[] csv)

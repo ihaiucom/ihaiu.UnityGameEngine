@@ -60,7 +60,7 @@ public static class StringUtils
     }
 
 
-    public static string ToStr<T>(this List<T> list)
+	public static string ToStr<T>(this List<T> list, string gapConfig=",\n")
     {
         string str = "{";
         string gap = "";
@@ -68,7 +68,7 @@ public static class StringUtils
         {
             str += gap + item;
 
-            gap = ", \n";
+			gap = gapConfig;
         }
 
         str += "}";

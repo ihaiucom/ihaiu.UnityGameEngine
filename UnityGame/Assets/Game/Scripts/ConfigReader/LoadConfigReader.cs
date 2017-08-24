@@ -5,7 +5,7 @@ using com.ihaiu;
 namespace Games
 {
 //	[ignoreAttibute]
-	[ConfigCsv("Config/loader", false)]
+	[ConfigCsv("Config/Client/loader", true, false)]
     public class LoadConfigReader : ConfigReader<LoadConfig>
 	{
 		public override void ParseCsv (string[] csv)

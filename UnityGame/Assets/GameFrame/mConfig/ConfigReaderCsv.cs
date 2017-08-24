@@ -9,7 +9,7 @@ namespace com.ihaiu
     public class ConfigReader<T> : AbstractParseCsv, IConfigReader
     {
         public Dictionary<int, T> configs = new Dictionary<int, T>();
-        private ConfigCsvAttribute arrtr;
+		protected ConfigCsvAttribute arrtr;
 
         virtual public void Load()
         {
@@ -29,6 +29,14 @@ namespace com.ihaiu
 
             string      line;
             string[]    csv;
+
+			if (arrtr.hasHeadType) 
+			{
+				line = sr.ReadLine();
+				csv = line.Split(';');
+				ParseHeadTypes(csv);
+			}
+
             line = sr.ReadLine();
             csv = line.Split(';');
             ParseHeadKeyCN(csv);

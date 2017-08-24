@@ -4,6 +4,8 @@ local M = AbstractParseCsv
 setmetatable(M, {__index = _G})
 setfenv(1, M)
 
+-- 表头 Type <int index, string type>
+headKeyTypes = {}
 -- 表头 中文 <int index, string cnName>
 headKeyCns = {}
 -- 表头 英文 <int index, string key>
@@ -12,6 +14,18 @@ headKeyEns = {}
 headKeyIndexs = {}
 -- 表头 属性 <int index, int propId >
 headPropIds = {}
+
+
+-- 解析表头行 Type
+function ParseHeadType(self, csv )
+	local key = "";
+	for i, v in ipairs(csv) do
+		key = string.trim(csv[i])
+		if string.IsNullOrEmpty(key) == false then
+			self.headKeyTypes[i] = key
+		end
+	end
+end
 
 
 -- 解析表头行 中文

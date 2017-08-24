@@ -56,21 +56,24 @@ function ParseAsset(self, assetName, txt)
 	txt = string.gsub(txt, "\r\n", "\n")
 	local lines = string.split(txt, '\n')
 
+	-- 解析表头行 Type
+	local csv = string.split(lines[1], ";")
+	self:ParseHeadType(csv)
 
 	-- 解析表头行 中文
-	local csv = string.split(lines[1], ";")
+	local csv = string.split(lines[2], ";")
 	self:ParseHeadKeyCN(csv)
 
 	-- 解析表头行 英文
-	csv = string.split(lines[2], ";")
+	csv = string.split(lines[3], ";")
 	self:ParseHeadKeyEN(csv)
 
 
-	local bodyBeginIndex = 3
+	local bodyBeginIndex = 4
 	-- 解析表头行 属性ID
 	if attribute.hasHeadPropId then
-		bodyBeginIndex = 4
-		csv = string.split(lines[3], ";")
+		bodyBeginIndex = 5
+		csv = string.split(lines[4], ";")
 		self:ParseHeadPropId(csv)
 	end
 

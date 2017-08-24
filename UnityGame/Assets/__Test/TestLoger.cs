@@ -9,6 +9,7 @@ public class TestLoger : MonoBehaviour {
 
 		
 		Loger.LogFormat ("Hello{0}", 11);
+
 	}
 
 	void Update ()

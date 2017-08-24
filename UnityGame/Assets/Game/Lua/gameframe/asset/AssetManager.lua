@@ -28,3 +28,19 @@ end
 function M:TryGet( path )
 	return self.csAsset:TryGetAsset(path)
 end
+
+
+
+-- [同步]加载并创建 预设
+function M:GetInstallPrefab( path )
+	local prefab = self.csAsset:LoadAsset(path)
+	local go = GameObject.Instantiate(prefab)
+	return go
+end
+
+
+-- [同步] 加载并返回资源 非预设
+function M:GetAsset( path )
+	return self.csAsset:LoadAsset(path)
+end
+

@@ -15,6 +15,10 @@ public class GenerateProtoRelevance
 
 		ProtoOpcodeReader configC = new ProtoOpcodeReader ();
 		ProtoOpcodeReader configS = new ProtoOpcodeReader ();
+
+		configC.delimiter = '\t';
+		configS.delimiter = '\t';
+
 		configC.Load (ProjectSettings.ProtoFile.Tools_client_opcode_c_csv);
 		configS.Load (ProjectSettings.ProtoFile.Tools_client_opcode_s_csv);
 
@@ -91,6 +95,15 @@ public class GenerateProtoRelevance
 
 		public void GenerateLuaFile()
 		{
+			sw.WriteLine (@"
+-- ======================================
+-- 该文件自动生成，不要修改，否则会替换
+-- 默认Menu: Game/Tool/proto -> opcode
+-- auth: 曾峰
+-- http://blog.ihaiu.com
+-- --------------------------------------
+");
+			
 			string format = "{0}_pb = require \"gen/pblua/{0}_pb\"" ;
 			foreach(var kvp in pbs)
 			{
@@ -209,6 +222,15 @@ require ""gen/proto/ProtoS_List""");
 
 			using (StreamWriter sw = new StreamWriter (ProjectSettings.ProtoFile.Lua_ProtoCList, false)) 
 			{
+				sw.WriteLine (@"
+-- ======================================
+-- 该文件自动生成，不要修改，否则会替换
+-- 默认Menu: Game/Tool/proto -> opcode
+-- auth: 曾峰
+-- http://blog.ihaiu.com
+-- --------------------------------------
+");
+				
 				sw.WriteLine (swDefine.ToString());
 				sw.WriteLine ("\n\n");
 				sw.WriteLine (swCreate.ToString());
@@ -286,6 +308,14 @@ require ""gen/proto/ProtoS_List""");
 
 			using (StreamWriter sw = new StreamWriter (ProjectSettings.ProtoFile.Lua_ProtoSList, false)) 
 			{
+				sw.WriteLine (@"
+-- ======================================
+-- 该文件自动生成，不要修改，否则会替换
+-- 默认Menu: Game/Tool/proto -> opcode
+-- auth: 曾峰
+-- http://blog.ihaiu.com
+-- --------------------------------------
+");
 				sw.WriteLine (swDefine.ToString());
 				sw.WriteLine ("\n\n");
 				sw.WriteLine (swCreate.ToString());
@@ -401,6 +431,14 @@ public partial class ProtoC
 
 			using (StreamWriter sw = new StreamWriter (ProjectSettings.ProtoFile.Chsarp_ProtoCList, false)) 
 			{
+				sw.WriteLine (@"
+// ======================================
+// 该文件自动生成，不要修改，否则会替换
+// 默认Menu: Game/Tool/proto -> opcode
+// auth: 曾峰
+// http://blog.ihaiu.com
+// --------------------------------------
+");
 				sw.WriteLine (swDefine.ToString());
 				sw.WriteLine ("\n\n");
 				sw.WriteLine (swCreate.ToString());
@@ -521,6 +559,14 @@ public partial class ProtoS
 
 			using (StreamWriter sw = new StreamWriter (ProjectSettings.ProtoFile.Chsarp_ProtoSList, false)) 
 			{
+				sw.WriteLine (@"
+// ======================================
+// 该文件自动生成，不要修改，否则会替换
+// 默认Menu: Game/Tool/proto -> opcode
+// auth: 曾峰
+// http://blog.ihaiu.com
+// --------------------------------------
+");
 				sw.WriteLine (swDefine.ToString());
 				sw.WriteLine ("\n\n");
 				sw.WriteLine (swCreate.ToString());

@@ -10,9 +10,13 @@ setfenv(1, M)
 
 -- 配置类型
 configType = ConfigType.CSV
+-- CSV分割符
+DELIMITER_CSV = ','
+-- CSV单元格内容，数组分割符
+DELIMITER_CSV_ARRAY = ';'
 
 -- 属性(配置路径， 是否有属性表头)
-attribute 	= ConfigCsvAttribute.New("", false)
+attribute 	= ConfigAttribute.New("", false)
 -- 配置的结构体
 Struct 		= class("ConfigStruct", {id=0})
 -- 配置的结构体信息
@@ -57,15 +61,15 @@ function ParseAsset(self, assetName, txt)
 	local lines = string.split(txt, '\n')
 
 	-- 解析表头行 Type
-	local csv = string.split(lines[1], ";")
+	local csv = string.split(lines[1], self.DELIMITER_CSV)
 	self:ParseHeadType(csv)
 
 	-- 解析表头行 中文
-	local csv = string.split(lines[2], ";")
+	local csv = string.split(lines[2], self.DELIMITER_CSV)
 	self:ParseHeadKeyCN(csv)
 
 	-- 解析表头行 英文
-	csv = string.split(lines[3], ";")
+	csv = string.split(lines[3], self.DELIMITER_CSV)
 	self:ParseHeadKeyEN(csv)
 
 
@@ -73,7 +77,7 @@ function ParseAsset(self, assetName, txt)
 	-- 解析表头行 属性ID
 	if attribute.hasHeadPropId then
 		bodyBeginIndex = 5
-		csv = string.split(lines[4], ";")
+		csv = string.split(lines[4], self.DELIMITER_CSV)
 		self:ParseHeadPropId(csv)
 	end
 
@@ -84,7 +88,7 @@ function ParseAsset(self, assetName, txt)
 	-- 解析内容行
 	for i = bodyBeginIndex,table.getn(lines) do
 		if string.IsNullOrEmpty(lines[i]) == false then
-			csv = string.split(lines[i], ';')
+			csv = string.split(lines[i], self.DELIMITER_CSV)
 			self:ParseCsv(csv)
 		end
 	end
@@ -131,9 +135,9 @@ function ParseCsv(self, csv )
 				v = v ~= "" and tonumber(v) or 0
 				o[key] = v ~= 0
 			elseif valType == TYPE_ARRAY_STRING then
-				o[key] = string.split(v, ",")
+				o[key] = string.split(v, self.DELIMITER_CSV_ARRAY)
 			elseif valType == TYPE_ARRAY_NUMBER then
-				o[key] = string.split(v, ",")
+				o[key] = string.split(v, self.DELIMITER_CSV_ARRAY)
 				for ik, iv in ipairs(o[key]) do
 					o[key][ik] = tonumber(iv)
 				end

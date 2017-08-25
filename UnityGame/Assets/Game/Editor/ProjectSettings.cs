@@ -103,6 +103,27 @@ public class ProjectSettings
 		}
 
 
+
+		/** Lua/gen代码目录 */
+		public static string Lua_gen
+		{
+			get 
+			{
+				return Lua+ "/gen";
+			}
+		}
+
+
+		/** Lua/gen/configreaders代码目录 */
+		public static string Lua_gen_configreaders
+		{
+			get 
+			{
+				return Lua+ "/gen/configreaders";
+			}
+		}
+
+
 	}
 
 	/** 协议的相关文件 */
@@ -261,6 +282,28 @@ public class ProjectSettings
 			get 
 			{
 				return Root.Tools_xlsx2lua + "/rm_tmp.sh";
+			}
+		}
+
+
+
+		/** gen/configreaders/{0} */
+		public static string Lua_namespace
+		{
+			get 
+			{
+				return "gen/configreaders/{0}";
+			}
+		}
+
+
+
+		/** gen/configreaders/{0}_Extend */
+		public static string Lua_namespace_Extend
+		{
+			get 
+			{
+				return "gen/configreaders/{0}_Extend";
 			}
 		}
 

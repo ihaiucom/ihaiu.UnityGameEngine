@@ -32,7 +32,7 @@ require "gameframe/loader/LoaderManager"
 -- Config
 require "gameframe/config/ConfigSetting"
 require "gameframe/config/ConfigType"
-require "gameframe/config/ConfigCsvAttribute"
+require "gameframe/config/ConfigAttribute"
 require "gameframe/config/IParseCsv"
 require "gameframe/config/IConfigReader"
 require "gameframe/config/AbstractParseCsv"

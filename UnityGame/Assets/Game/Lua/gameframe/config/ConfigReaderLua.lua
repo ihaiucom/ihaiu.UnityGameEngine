@@ -6,7 +6,7 @@ local M = ConfigReaderLua
 M.configType = ConfigType.LUA
 
 -- 属性(配置路径， 是否有属性表头)
-M.attribute 	= ConfigCsvAttribute.New("", false)
+M.attribute 	= ConfigAttribute.New("", false)
 
 -- 结构体 比如:ItemConfig
 M.StructClass 	= nil
@@ -113,19 +113,18 @@ function M:GetHeadPropId(index )
 end
 
 function M:ParseLine(i, ... )
-	if i == 1 then
+	if i > 4 then
+		self:ParseHeadPropId(...)
+	elseif i == 1 then
 		self:ParseHeadType(...)
 	elseif i == 2 then
 		self:ParseHeadKeyCN(...)
 	elseif i == 3 then
 		self:ParseHeadKeyEN(...)
-	elseif i == 4 and self.attribute and   then
+	elseif i == 4 and self.attribute ~= nil and self.attribute.hasHeadPropId  then
 		self:ParseHeadPropId(...)
 	end
 
-	self:ParseHeadKeyCN()
-	self:ParseHeadKeyEN()
-	self:ParseHeadPropId()
 end
 
 

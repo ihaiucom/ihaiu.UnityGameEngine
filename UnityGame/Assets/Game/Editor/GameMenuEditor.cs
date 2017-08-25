@@ -46,7 +46,7 @@ namespace Games
 		}
 
 
-		[MenuItem("Game/Tool/Generate proto opcode")]
+		[MenuItem("Game/Tool/proto -> opcode")]
 		public static void GenerateProtoOpcode()
 		{
 			GenerateProtoRelevance.Generate ();

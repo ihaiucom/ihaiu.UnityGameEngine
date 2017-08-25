@@ -8,6 +8,9 @@ namespace com.ihaiu
 {
     public class ConfigReader<T> : AbstractParseCsv, IConfigReader
     {
+
+		public char 			delimiter = ',';
+
         public Dictionary<int, T> configs = new Dictionary<int, T>();
 		protected ConfigCsvAttribute arrtr;
 
@@ -33,22 +36,22 @@ namespace com.ihaiu
 			if (arrtr.hasHeadType) 
 			{
 				line = sr.ReadLine();
-				csv = line.Split(';');
+				csv = line.Split(delimiter);
 				ParseHeadTypes(csv);
 			}
 
             line = sr.ReadLine();
-            csv = line.Split(';');
+			csv = line.Split(delimiter);
             ParseHeadKeyCN(csv);
 
             line = sr.ReadLine();
-            csv = line.Split(';');
+			csv = line.Split(delimiter);
             ParseHeadKeyEN(csv);
 
             if (arrtr.hasHeadPropId)
             {
                 line = sr.ReadLine();
-                csv = line.Split(';');
+				csv = line.Split(delimiter);
                 ParseHeadPropId(csv);
             }
 
@@ -60,12 +63,14 @@ namespace com.ihaiu
                     break;
                 }
 
-                csv = line.Split(';');
+				csv = line.Split(delimiter);
                 if (csv.Length != 0 && !string.IsNullOrEmpty(csv[0]))
                 {
                     ParseCsv(csv);
                 }
             }
+
+			sr.Dispose ();
         }
 
         virtual public void Reload()

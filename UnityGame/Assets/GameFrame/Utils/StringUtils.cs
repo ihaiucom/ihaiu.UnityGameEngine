@@ -18,6 +18,13 @@ public static class StringUtils
 		return char.ToLower(str[0]) + str.Substring(1); 
 	}
 
+
+	/** 首字母大写 */
+	public static string FirstUpper(this string str)
+	{
+		return char.ToUpper(str[0]) + str.Substring(1); 
+	}
+
     public static string to0x(this int val)
     {
         return "0x" + Convert.ToString (val, 16);
@@ -75,7 +82,7 @@ public static class StringUtils
         return str;
     }
 
-    public static string ToStr<T>(this T[] list)
+	public static string ToStr<T>(this T[] list, string gapConfig = ",\n")
     {
         string str = "{";
         string gap = "";
@@ -83,7 +90,7 @@ public static class StringUtils
         {
             str += gap + item;
 
-            gap = ", \n";
+			gap = gapConfig;
         }
 
         str += "}";

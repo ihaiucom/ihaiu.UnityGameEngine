@@ -29,7 +29,7 @@ M.configs 	= {}
 
 -- 加载
 function M:Load( )
-	self:ReadItems()
+	self:ReadConfigs()
 end
 
 -- 重新加载
@@ -39,8 +39,8 @@ end
 
 
 -- 根据ID获取配置
-function M:GetConfig(id)
-
+function M:GetConfig(key)
+	return self:configs[key]
 end
 
 
@@ -114,7 +114,7 @@ end
 
 function M:ParseLine(i, ... )
 	if i > 4 then
-		self:ParseHeadPropId(...)
+		self:AddConfigArgs(...)
 	elseif i == 1 then
 		self:ParseHeadType(...)
 	elseif i == 2 then
@@ -123,6 +123,8 @@ function M:ParseLine(i, ... )
 		self:ParseHeadKeyEN(...)
 	elseif i == 4 and self.attribute ~= nil and self.attribute.hasHeadPropId  then
 		self:ParseHeadPropId(...)
+	else
+		self:AddConfigArgs(...)
 	end
 
 end
@@ -132,7 +134,7 @@ end
 
 
 
--- 读取列表
+-- 读取数据
 function M:ReadConfigs( )
 	
 end

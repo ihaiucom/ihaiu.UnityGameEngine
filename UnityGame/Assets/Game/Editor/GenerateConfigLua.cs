@@ -68,12 +68,14 @@ public class GenerateConfigLua
 
 
 		// 生存XXXConfigReader.lua
+		new GenerateConfigReader(filename, csv, generateConfigStruct).Generate();
 
 		// 生存XXXConfigReader_Data.lua
 	}
 
 
-	/** 生成配置数据结构 */
+
+	/** 生成配置数据结构 XXXConfig.lua */
 	public class GenerateConfigStruct
 	{
 		public string 	csvName;
@@ -92,6 +94,8 @@ public class GenerateConfigLua
 		public string[] headCns;
 		public string[] headEns;
 		public string[] samples;
+
+		public Dictionary<int, bool> ignoreColumns = new Dictionary<int, bool> ();
 
 
 		public string GetKey()
@@ -138,7 +142,10 @@ public class GenerateConfigLua
 				string en 		= headEns	[i];
 				string sample	= samples	[i];
 				if (string.IsNullOrEmpty (en))
+				{
+					ignoreColumns.Add (i, true);
 					continue;
+				}
 
 				args.Add (en);
 
@@ -173,6 +180,8 @@ public class GenerateConfigLua
 -- 该文件自动生成,，不要修改，否则会替换
 -- 默认Menu: Game/Tool/xlsx->lua
 -- auth: 曾峰
+-- email:zengfeng75@qq.com
+-- qq: 593705098
 -- http://blog.ihaiu.com
 -- --------------------------------------			
 ");
@@ -236,6 +245,189 @@ public class GenerateConfigLua
 			sw.WriteLine ("-- -------------");
 			sw.WriteLine ("function M:Parse()");
 			sw.WriteLine ("\t -- process");
+			sw.WriteLine ("end");
+
+
+
+
+
+			File.WriteAllText (fileExtendPath, sw.ToString());
+			Loger.Log (fileExtendPath);
+
+			return this;
+		}
+	}
+
+
+
+
+
+
+
+	/** 生存配置读取器 XXXConfigReader.lua */
+	public class GenerateConfigReader
+	{
+		public string 	csvName;
+		public CsvData 	csv;
+		public GenerateConfigStruct generateConfigStruct;
+
+		public string 	className;
+		public string 	requirePath;
+		public string 	filePath;
+
+
+		public string 	requireExtendPath;
+		public string 	fileExtendPath;
+
+		public string[] headTypes;
+		public string[] headCns;
+		public string[] headEns;
+		public string[] samples;
+
+
+		public string GetKey()
+		{
+			return csv.GetCell (CSV_HEAD_LINE_INDEX_EN, 0);
+		}
+
+		public GenerateConfigReader(string csvName, CsvData csv, GenerateConfigStruct generateConfigStruct)
+		{
+			this.csvName 				= csvName;
+			this.csv 					= csv;
+			this.generateConfigStruct 	= generateConfigStruct;
+
+
+
+			className = string.Format("{0}ConfigReader", csvName.FirstUpper());
+
+			requirePath = string.Format(ProjectSettings.Config2LuaFile.Lua_namespace, className);
+			filePath = string.Format("{0}/{1}.lua", ProjectSettings.Root.Lua, requirePath);
+
+
+			requireExtendPath = string.Format(ProjectSettings.Config2LuaFile.Lua_namespace_Data, className);
+			fileExtendPath = string.Format("{0}/{1}.lua", ProjectSettings.Root.Lua, requireExtendPath);
+
+
+
+			headTypes 	= csv.GetLine(CSV_HEAD_LINE_INDEX_TYPE);
+			headCns 	= csv.GetLine(CSV_HEAD_LINE_INDEX_CN);
+			headEns 	= csv.GetLine(CSV_HEAD_LINE_INDEX_EN);
+
+			samples		=  csv.LineCount > CSV_HEAD_LINE_INDEX_PROP + 1 ? csv.GetLine(CSV_HEAD_LINE_INDEX_PROP + 1) : csv.GetLine(CSV_HEAD_LINE_INDEX_PROP);
+		}
+
+		public GenerateConfigReader Generate()
+		{
+
+			if (File.Exists (filePath)) 
+			{
+				GenerateExtend ();
+				return this;
+			}
+			
+
+			StringWriter sw = new StringWriter ();
+
+			sw.WriteLine (string.Format(@"-- ======================================
+-- 该文件只会第一次生成，存在就不再生成。你可以在这扩展功能
+-- {0} 读取器
+-- 默认Menu: Game/Tool/xlsx->lua
+-- http://blog.ihaiu.com
+-- --------------------------------------			
+", generateConfigStruct.className ));
+
+			// 结构体
+			sw.WriteLine (string.Format("{0} = class(\"{0}\", ConfigReaderLua )", className));
+
+			sw.WriteLine (string.Format("local M = {0} \n", className));
+			sw.WriteLine ("");
+			sw.WriteLine ("");
+
+			sw.WriteLine (string.Format("-- 结构体"));
+			sw.WriteLine (string.Format("M.StructClass = {0}",  generateConfigStruct.className));
+			sw.WriteLine ("");
+
+			sw.WriteLine (string.Format("-- 属性(配置文件, 是否有属性表头)"));
+			sw.WriteLine (string.Format("M.attribute = ConfigAttribute.New( {0}, false ) ",  csvName));
+			sw.WriteLine ("");
+			sw.WriteLine ("");
+
+
+			sw.WriteLine (string.Format("-- 导入数据"));
+			sw.WriteLine (string.Format("require \"{0}\"", requireExtendPath));
+
+
+
+			File.WriteAllText (filePath, sw.ToString());
+			Loger.Log (filePath);
+
+			GenerateExtend ();
+
+			return this;
+		}
+
+		public GenerateConfigReader GenerateExtend()
+		{
+
+			StringWriter dataSW = new StringWriter ();
+
+			for(int lineIndex = 0; lineIndex < csv.LineCount; lineIndex ++)
+			{
+				List<string> args = new List<string> ();
+				string[] line = csv.GetLine (lineIndex);
+				for(int i = 0; i < line.Length; i ++)
+				{
+					if (generateConfigStruct.ignoreColumns.ContainsKey (i)) 
+					{
+						continue;
+					}
+
+					string type 	= headTypes	[i];
+
+
+					string defaultVal = "nil";
+					switch(type)
+					{
+					case "int":
+						args.Add (line[i]);
+						break;
+					case "bool":
+						args.Add ( ( string.IsNullOrEmpty( line[i] ) ||   line[i] == "0") ? "false" : "true" );
+						break;
+					default:
+						args.Add (string.Format("\"{0}\"", line[i] ));
+						break;
+					}
+					
+				}
+
+				dataSW.WriteLine ("\tself:ParseLine({0}, {1})", lineIndex + 1, args.ToStr(", "));
+			}
+
+
+
+			StringWriter sw = new StringWriter ();
+			sw.WriteLine ("-- ===========================");
+			sw.WriteLine (string.Format("-- {0} 的数据", className));
+			sw.WriteLine ("-- 默认Menu: Game/Tool/xlsx->lua");
+			sw.WriteLine ("-- autho:曾峰");
+			sw.WriteLine ("-- email:zengfeng75@qq.com");
+			sw.WriteLine ("-- qq:593705098");
+			sw.WriteLine ("-- http://blog.ihaiu.com");
+			sw.WriteLine ("-- ---------------------------\n\n");
+
+
+
+
+
+			sw.WriteLine ("");
+			sw.WriteLine (string.Format("local M = {0}", className));
+			sw.WriteLine ("\n\n");
+
+
+			sw.WriteLine ("-- 读取数据");
+			sw.WriteLine ("function M:ReadConfigs()");
+			sw.WriteLine (dataSW.ToString());
 			sw.WriteLine ("end");
 
 

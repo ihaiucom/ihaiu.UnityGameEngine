@@ -2,6 +2,8 @@
 -- 该文件自动生成,，不要修改，否则会替换
 -- 默认Menu: Game/Tool/xlsx->lua
 -- auth: 曾峰
+-- email:zengfeng75@qq.com
+-- qq: 593705098
 -- http://blog.ihaiu.com
 -- --------------------------------------			
 

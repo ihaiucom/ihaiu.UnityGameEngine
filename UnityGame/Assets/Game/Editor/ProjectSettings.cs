@@ -308,6 +308,16 @@ public class ProjectSettings
 		}
 
 
+		/** gen/configreaders/{0}_Data */
+		public static string Lua_namespace_Data
+		{
+			get 
+			{
+				return "gen/configreaders/{0}_Data";
+			}
+		}
+
+
 
 
 	}
